@@ -1,20 +1,34 @@
+{# Récupération de la base #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{# On définit le titre de la page #}
+{% block title %}
+	{{title|default('Nos séries')}}
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<div class="container mt-5">
+		<header class="mt-4">
+			<h1 class="text-center mb-5 display-4">{{title|default('Nos séries')}}</h1>
+			{# {% if games[0]['pegi'] is defined %}
+				<div class="d-flex justify-content-center" style="width:100%">
+					<img src="/images/pegi/{{games[0]['pegi']}}" alt="image pegi" style="height:100px; width:auto; object-fit:contain" class="mb-3">
+				</div>
+			{% endif %} #}
+			
+		</header>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+		{% for serie in series %}
+			<div>
+				{{ serie.title}}
+			</div>			
+		{% endfor %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/var/www/html/src/Controller/HomeController.php</code></li>
-        <li>Your template at <code>/var/www/html/templates/home/index.html.twig</code></li>
-    </ul>
-</div>
+		{# <div class="game-grid">
+			{% for game in games %}
+				{% include 'components/_game_card.html.twig' with {'game': game} %}
+			{% endfor %}
+		</div> #}
+	</div>
+
 {% endblock %}
