@@ -1,0 +1,52 @@
+	{# {% set date = book.releaseDate|date('d/m/Y') %}
+
+	<div class="game-detail-card">
+		<div class="game-detail-image">
+			<img src="{{asset('images/' ~ book.imagePath)}}" alt="{{book.title}}">
+		</div>
+		<div class="game-detail-content">
+			<h1 class="game-title">{{book.title}}</h1>
+
+            <div class="game-info-detail mb-4">
+                <div class="info-item">
+                    <span class="info-label">Auteur :
+                    </span>
+                    <span class="info-value">{{author.name}} {{author.firstname}}</span>                    
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Editeur :
+                    </span>
+                    <span class="info-value">{{editor.name}}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Genre :
+                    </span>
+                    <span class="info-value"
+			<div class="game-info-detail mb-4">
+				<div class="info-item">
+					<span class="info-label">Date de sortie :
+					</span>
+					<span class="info-value">{{date}}</span>
+				</div>
+                <div class="info-item">
+                    <span class="info-label">Nombre de pages :
+                    </span>
+                    <span class="info-value">{{book.numberPage}}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Prix :
+                    </span>
+                    <span class="info-value">{{(book.price/100)|number_format}}</span>
+                </div>
+                <div class="info_item">
+                    <span class="info-label">ISBN :
+                    </span>
+                    <span class="info-value">{{book.isbn}}</span>
+                </div>
+			</div>
+			<div class="game-synopsis mb-4">
+				<h2>Synopsis</h2>
+				<p>{{book.description}}</p>
+			</div>
+		</div>
+	</div> #}

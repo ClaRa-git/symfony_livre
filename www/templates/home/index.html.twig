@@ -14,9 +14,7 @@
 
 		<div class="game-grid">
 			{% for serie in series %}
-				<div>
-					{{ serie.title}}
-				</div>
+				{% include 'components/_serie_card.html.twig' with {'book': serie} %}
 			{% endfor %}
 		</div>
 	</div>
