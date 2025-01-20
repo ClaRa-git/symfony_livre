@@ -90,7 +90,6 @@ class AppFixtures extends Fixture
      */
     public function loadTypes(ObjectManager $manager): void
     {
-
         // Création d'un tableau avec les genres littéraires
         $array_types = [
             "Horreur",

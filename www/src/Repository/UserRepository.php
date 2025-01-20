@@ -57,4 +57,53 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+        /**
+     * Méthode qui retourne tous les utlisateurs avec ROLE_ADMIN
+     * @return User[]
+     */
+    public function findAllAdmins(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $qb = $entityManager->createQueryBuilder();
+
+        $query = $qb->select([
+            'u.id',
+            'u.username',
+            'u.email',
+            'u.roles',
+        ])
+        ->from(User::class, 'u')
+        ->where('u.roles LIKE :roles')
+        ->setParameter('roles', '%ROLE_ADMIN%')
+        ->getQuery();
+        
+        return $query->getResult();
+    }
+
+    /**
+     * Méthode qui retourne tous les utlisateurs avec ROLE_USER
+     * @return User[]
+     */
+    public function findAllUsers(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $qb = $entityManager->createQueryBuilder();
+
+        $query = $qb->select([
+            'u.id',
+            'u.username',
+            'u.email',
+            'u.roles',
+        ])
+        ->from(User::class, 'u')
+        ->where('u.roles LIKE :roles')
+        ->setParameter('roles', '%ROLE_USER%')
+        ->getQuery();
+        
+        return $query->getResult();
+    }
+
 }
