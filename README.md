@@ -1,3 +1,5 @@
+Site de gestion de stock de livres
+
 # Recipe Docker PHP Symfony
 
 ## Prérequis
@@ -116,3 +118,38 @@ cconsole d:m:m
 ⚠️ **Attention** : Vérifiez votre .env avec les valeurs de vos variables d'environnement définies précédemment.
 
 ## ENJOY :)
+
+## SI LE PROJET N'A PAS ETE CONFIGURE
+
+Cours SYMFONY
+
+METHODO
+Après avoir lancé le docker, Faire :
+
+enlever le - dans le "docker-compose" (3 dans le dossier)
+
+commenter tout le contenu du fichier assets/bootstrp.js
+
+- ccomposer install
+- ccomposer create-project symfony/skeleton:"7.3.x-dev" ./
+DANS nnpm :
+- ccomposer require symfony/webpack-encore-bundle
+- dans webpack.config.json on va décommenter « enableSassLoader»
+- renommer app.css en .scss
+- nnpm (rentrer dans le container)
+- npm install
+- npm install sass-loader node-sass --save-dev
+- npm run build
+- dans app.js on commente stimulus et on ajoute :
+    - import './bootstrap.js';
+    - import { Tooltip, Toast, Popover } from 'bootstrap';
+    - import './bootstrap';
+- npm run build
+- dans base.html.twig
+- npm run watch
+
+PPUR REMETTRE A ZERO LA BASE :
+- cconsole d:d:d --force
+- cconsole d:d:c
+- cconsole d:m:m
+- cconsole d:f:l
