@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AuthorRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,6 +24,17 @@ class Author
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $biography = null;
+
+    /**
+     * @var Collection<int, Serie>
+     */
+    #[ORM\ManyToMany(targetEntity: Serie::class, mappedBy: 'author')]
+    private Collection $series;
+
+    public function __construct()
+    {
+        $this->series = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -60,6 +73,33 @@ class Author
     public function setBiography(string $biography): static
     {
         $this->biography = $biography;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Serie>
+     */
+    public function getSeries(): Collection
+    {
+        return $this->series;
+    }
+
+    public function addSeries(Serie $series): static
+    {
+        if (!$this->series->contains($series)) {
+            $this->series->add($series);
+            $series->addAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSeries(Serie $series): static
+    {
+        if ($this->series->removeElement($series)) {
+            $series->removeAuthor($this);
+        }
 
         return $this;
     }

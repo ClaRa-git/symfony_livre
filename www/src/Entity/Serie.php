@@ -55,12 +55,19 @@ class Serie
     #[ORM\ManyToMany(targetEntity: Type::class, mappedBy: 'serie')]
     private Collection $types;
 
+    /**
+     * @var Collection<int, Author>
+     */
+    #[ORM\ManyToMany(targetEntity: Author::class, inversedBy: 'series')]
+    private Collection $author;
+
     public function __construct()
     {
         $this->user = new ArrayCollection();
         $this->editors = new ArrayCollection();
         $this->books = new ArrayCollection();
         $this->types = new ArrayCollection();
+        $this->author = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -232,6 +239,30 @@ class Serie
         if ($this->types->removeElement($type)) {
             $type->removeSerie($this);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Author>
+     */
+    public function getAuthor(): Collection
+    {
+        return $this->author;
+    }
+
+    public function addAuthor(Author $author): static
+    {
+        if (!$this->author->contains($author)) {
+            $this->author->add($author);
+        }
+
+        return $this;
+    }
+
+    public function removeAuthor(Author $author): static
+    {
+        $this->author->removeElement($author);
 
         return $this;
     }
