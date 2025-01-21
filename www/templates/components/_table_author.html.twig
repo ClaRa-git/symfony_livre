@@ -1,0 +1,30 @@
+        <h2>{{title}}</h2>
+        <table class="game-table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for author in authors %}
+                <tr>
+                    <td>{{ author.id }}</td>
+                    <td>{{ author.name }}</td>
+                    <td>{{ author.firstname }}</td>
+                    <td>
+                        <div class="game-actions">
+                            <a href="{{path('app_author_show', {'id': author.id})}}" class="view-link">Voir</a>
+                            <a href="{{path('app_author_edit', {'id': author.id})}}" class="edit-link">Editer</a>
+                        </div>                    
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">Pas d'auteur trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>

@@ -180,7 +180,7 @@ class AppFixtures extends Fixture
                 'name' => 'Martin',
                 'firstname' => 'George R.R.',
                 'biography' => 'George R.R. Martin est un écrivain américain, auteur de la série Le Trône de Fer. Il est considéré comme l’un des plus grands écrivains de fantasy de tous les temps et a influencé de nombreux auteurs de fantasy et de science-fiction. Il a vendu plus de 90 millions de livres dans le monde entier et a remporté de nombreux prix littéraires pour ses écrits.',
-            ]
+            ],
         ];
 
         // Boucle pour créer les auteurs

@@ -1,34 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Author{% endblock %}
+{% block title %}Auteur{% endblock %}
 
 {% block body %}
-    <h1>Author</h1>
+    <h1>{{author.firstname}} {{author.name}}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ author.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ author.name }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ author.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Biography</th>
-                <td>{{ author.biography }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="card" style="width: 50rem;">
+        <div class="card-body">
+            <p class="card-text">{{author.biography}}</p>
+        </div>
 
-    <a href="{{ path('app_author_index') }}">back to list</a>
+    <div class="action-buttons">
+		<div>
+			{# suppression #}
+			{% include "author/_delete_form.html.twig" with {'button_class': 'btn btn-delete'} %}
+		</div>
+		<div>
+			<a href="{{ path('app_author_edit', {'id': author.id}) }}" class="btn btn-edit">Editer</a>
+		</div>
+		<div>
+			<a href="{{path('app_author_index')}}" class="btn btn-back">
+				<i class="fas fa-arrow-left"></i>Retour à la liste</a>
 
-    <a href="{{ path('app_author_edit', {'id': author.id}) }}">edit</a>
+		</div>
+    </div>
 
-    {{ include('author/_delete_form.html.twig') }}
 {% endblock %}

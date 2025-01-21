@@ -35,7 +35,7 @@ class Book
     #[ORM\Column(length: 30)]
     private ?string $isbn = null;
 
-    #[ORM\ManyToOne(inversedBy: 'books')]
+    #[ORM\ManyToOne(inversedBy: 'books', cascade:['persist', 'remove'])]
     private ?Serie $serie = null;
 
     public function getId(): ?int

@@ -1,13 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Author{% endblock %}
+{% block title %}Edition de l'auteur{% endblock %}
 
 {% block body %}
-    <h1>Edit Author</h1>
 
-    {{ include('author/_form.html.twig', {'button_label': 'Update'}) }}
+    <div class="game-form-container">    
+        <h1>Modifier l'auteur</h1>
 
-    <a href="{{ path('app_author_index') }}">back to list</a>
+        <h2>{{author.firstname}} {{author.name}}</h2>
 
-    {{ include('author/_delete_form.html.twig') }}
+        {{ include('author/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+        <div class="action-buttons">
+            <a href="{{path('app_author_index')}}" class="btn btn-back">
+                <i class="fas fa-arrow-left"></i>
+                Retour à la liste
+            </a>
+            {{ include('author/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}
