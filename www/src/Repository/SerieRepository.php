@@ -231,4 +231,21 @@ class SerieRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    /**
+     * Méthode qui retourne la liste des séries par filtre
+     * @param string $filter
+     * @return array
+     */
+    public function getSeriesByFilter(string $filter): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery('
+            SELECT s.id, s.title, s.dateStarted
+            FROM App\Entity\Serie s
+            ORDER BY s.' . $filter
+        );
+
+        return $query->getResult();
+    }
 }

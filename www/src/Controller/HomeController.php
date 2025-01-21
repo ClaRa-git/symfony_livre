@@ -151,4 +151,47 @@ class HomeController extends AbstractController
         ]);
     }
 
+    /**
+     * Méthode permettant d'afficher la liste des séries par filtre
+     * @Route("/series/filter/{field}", name="app_series_filter")
+     * @param SerieRepository $serieRepository
+     * @param string $field
+     * @return Response
+     */
+    #[Route('/series/filter/{field}', name: 'app_series_filter')]
+    public function seriesFilter(SerieRepository $serieRepository, string $field)
+    {
+        // Récupération des séries
+        $allSeries = $serieRepository->getSeriesByFilter($field);
+
+        $series = [];
+        foreach ($allSeries as $serie) {
+            $series[] = [
+                'serie' => $serie,
+                'imagePath' => $serieRepository->getFistBookCover($serie['id'])
+            ];
+        }
+
+        // Titre de la page
+        switch ($field) {
+            case 'dateStarted ASC':
+                $field = 'date de sortie croissante';
+                break;
+            case 'dateStarted DESC':
+                $field = 'date de sortie décroissante';
+                break;
+            case 'title ASC':
+                $field = 'titre croissant';
+                break;
+            case 'title DESC':
+                $field = 'titre décroissant';
+                break;
+        }
+        $title = "Séries par " . $field;
+
+        return $this->render('home/index.html.twig', [
+            'title' => $title,
+            'series' => $series
+        ]);
+    }
 }

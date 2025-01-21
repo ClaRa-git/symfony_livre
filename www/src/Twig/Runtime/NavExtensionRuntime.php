@@ -35,6 +35,20 @@ class NavExtensionRuntime implements RuntimeExtensionInterface
     }
 
     /**
+     * Méthode pour récupérer les filtres pour les items
+     * @return array
+     */
+    public function filtersItems()
+    {
+        return [
+            ['label' => 'Date de sortie', 'filter' => 'dateStarted ASC', 'icon' => 'fa-sharp fa-solid fa-arrow-up'],
+            ['label' => 'Date de sortie', 'filter' => 'dateStarted DESC', 'icon' => 'fa-sharp fa-solid fa-arrow-down'],
+            ['label' => 'Titre', 'filter' => 'title ASC', 'icon' => 'fa-sharp fa-solid fa-arrow-up'],
+            ['label' => 'Titre', 'filter' => 'title DESC', 'icon' => 'fa-sharp fa-solid fa-arrow-down']
+        ];
+    }
+
+    /**
      * Méthode de formatage des nombres pour les prix
      * @param int $number
      * @param int $decimals

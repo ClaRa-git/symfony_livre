@@ -20,7 +20,8 @@ class NavExtension extends AbstractExtension
     {
         return [
             new TwigFunction('menu_series_author', [NavExtensionRuntime::class, 'menuSeriesAuthor']),
-            new TwigFunction('menu_series_editor', [NavExtensionRuntime::class, 'menuSeriesEditor'])
+            new TwigFunction('menu_series_editor', [NavExtensionRuntime::class, 'menuSeriesEditor']),
+            new TwigFunction('filters_items', [NavExtensionRuntime::class, 'filtersItems'])
         ];
     }
 }
