@@ -150,7 +150,7 @@ class AppFixtures extends Fixture
         foreach ($array_editors as $key => $value) {
             $editor = new Editor();
             $editor->setName($value['name']);
-            $editor->setAdress($value['address']);
+            $editor->setAddress($value['address']);
             $manager->persist($editor);
 
             // Définition des références

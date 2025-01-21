@@ -38,17 +38,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 30)]
     private ?string $username = null;
 
-    /**
-     * @var Collection<int, Serie>
-     */
-    #[ORM\ManyToMany(targetEntity: Serie::class, mappedBy: 'user')]
-    private Collection $series;
-
-    public function __construct()
-    {
-        $this->series = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -132,33 +121,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUsername(string $username): static
     {
         $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Serie>
-     */
-    public function getSeries(): Collection
-    {
-        return $this->series;
-    }
-
-    public function addSeries(Serie $series): static
-    {
-        if (!$this->series->contains($series)) {
-            $this->series->add($series);
-            $series->addUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSeries(Serie $series): static
-    {
-        if ($this->series->removeElement($series)) {
-            $series->removeUser($this);
-        }
 
         return $this;
     }

@@ -3,13 +3,19 @@
 {% block title %}Genre{% endblock %}
 
 {% block body %}
-    <h1>Genre</h1>
+    <div class="game-detail-card">
+		<div class="game-detail-content">
+			<h1 class="game-title">{{type.label|slice(0,30)}}</h1>
 
-    <div class="card" style="width: 50rem;">
-        <div class="card-body">
-            <p class="card-text">{{type.label}}</p>
-        </div>
-    </div>
+			<div class="game-info-detail mb-4">
+				<div class="info-item">
+					<span class="info-label">Nom : </span>
+					</span>
+					<span class="info-value">{{type.label}}</span>
+				</div>
+			</div>
+		</div>
+	</div>
 
     <div class="action-buttons">
 		<div>

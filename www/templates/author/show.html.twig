@@ -3,12 +3,15 @@
 {% block title %}Auteur{% endblock %}
 
 {% block body %}
-    <h1>{{author.firstname}} {{author.name}}</h1>
 
-    <div class="card" style="width: 50rem;">
-        <div class="card-body">
-            <p class="card-text">{{author.biography}}</p>
-        </div>
+	<div class="game-detail-card">
+		<div class="game-detail-content">
+			<h1 class="game-title">{{author.firstname}} {{author.name}}</h1>
+			<div class="game-synopsis mb-4">
+				<h2>Biographie</h2>
+				<p>{{author.biography}}</p>
+			</div>
+		</div>
 	</div>
 
     <div class="action-buttons">
