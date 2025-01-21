@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Utilisateur
+{% block title %}User
 {% endblock %}
 
 {% block body %}
@@ -10,11 +10,11 @@
 		<img src="{{asset('images/user.png')}}" class="card-img-top" alt="photo profil">
 		<div class="card-body">
 			<h5 class="card-title">{{user.username}}</h5>
+			{{user.roles|badge_user}}
 
 			<p class="card-text">{{user.email}}</p>
 		</div>
 	</div>
-
 
 	<div class="action-buttons">
 		<div>
@@ -23,7 +23,6 @@
 		</div>
 		<div>
 			<a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-edit">Editer</a>
-
 		</div>
 		<div>
 			<a href="{{path('app_user_index')}}" class="btn btn-back">

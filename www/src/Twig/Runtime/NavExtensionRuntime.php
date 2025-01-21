@@ -74,4 +74,22 @@ class NavExtensionRuntime implements RuntimeExtensionInterface
             return 'Gratuit';
         }
     }
+
+    /**
+     * Méthode pour afficher le badge de l'utilisateur
+     * @param array $roles
+     * @return string
+     */
+    public function badgeUser($roles): string
+    {
+
+        switch ($roles[0]) {
+            case 'ROLE_ADMIN':
+                return  '<span class="badge text-bg-warning">Admin</span>';
+            case 'ROLE_USER':
+                return '<span class="badge text-bg-primary">Client</span>';
+            default:
+                return '<span class="badge text-bg-secondary">Inconnu</span>';
+        }
+    }
 }
