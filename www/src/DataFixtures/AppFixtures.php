@@ -346,7 +346,7 @@ class AppFixtures extends Fixture
                 'serie' => 1
             ],
             [
-                'title' => 'Le Seigneur des Anneaux - La Communauté de l\'Anneau',
+                'title' => 'La Communauté de l\'Anneau',
                 'numberPage' => 576,
                 'description' => 'Frodon Sacquet, un Hobbit de la Comté, hérite d’un anneau. Mais ce n’est pas un anneau ordinaire : c’est l’Anneau Unique, un instrument de pouvoir absolu qui permettrait à Sauron, le Seigneur des Ténèbres, de régner sur la Terre du Milieu et de réduire en esclavage ses peuples. Frodon doit quitter la Comté et entreprendre un long voyage pour détruire l’Anneau. Il sera aidé dans sa quête par huit compagnons : Gandalf le Gris, Aragorn le Rôdeur, Legolas l’Elfe, Gimli le Nain, Boromir de Gondor, et ses trois cousins Merry, Pippin et Sam. Ensemble, ils formeront la Communauté de l’Anneau, et devront affronter de nombreux dangers pour atteindre le Mordor, où l’Anneau pourra être détruit.',
                 'releaseDate' => new \DateTime('1954-07-29'),
@@ -356,7 +356,7 @@ class AppFixtures extends Fixture
                 'serie' => 2
             ],
             [
-                'title' => 'Le Seigneur des Anneaux - Les Deux Tours',
+                'title' => 'Les Deux Tours',
                 'numberPage' => 448,
                 'description' => 'La Communauté de l’Anneau s’est brisée. Frodon et Sam poursuivent leur voyage vers le Mordor, accompagnés par Gollum, une créature étrange qui a jadis possédé l’Anneau. Mais ils ignorent que Gollum les mène droit dans un piège tendu par Sauron. Pendant ce temps, Aragorn, Legolas et Gimli partent à la recherche de Merry et Pippin, enlevés par les Orques de Saroumane. Ils seront aidés dans leur quête par Gandalf, qui a survécu à sa chute dans les ténèbres de Khazad-dûm. Les Deux Tours est le deuxième tome de la trilogie Le Seigneur des Anneaux, de J.R.R. Tolkien.',
                 'releaseDate' => new \DateTime('1954-11-11'),
@@ -366,7 +366,7 @@ class AppFixtures extends Fixture
                 'serie' => 2
             ],
             [
-                'title' => 'Le Seigneur des Anneaux - Le Retour du Roi',
+                'title' => 'Le Retour du Roi',
                 'numberPage' => 464,
                 'description' => 'La guerre de l’Anneau est terminée. Sauron a été vaincu, et l’Anneau Unique a été détruit. Mais la victoire a un goût amer pour Frodon Sacquet, qui a été gravement blessé lors de sa quête. Il rentre à la Comté, où il espère trouver la paix. Mais la Comté a été envahie par les Orques de Saroumane, qui ont pris le contrôle de la région. Frodon et ses amis Merry, Pippin et Sam doivent se lancer dans une nouvelle aventure pour libérer leur pays. Le Retour du Roi est le troisième tome de la trilogie Le Seigneur des Anneaux, de J.R.R. Tolkien.',
                 'releaseDate' => new \DateTime('1955-10-20'),
@@ -376,7 +376,7 @@ class AppFixtures extends Fixture
                 'serie' => 2
             ],
             [
-                'title' => 'Le Trône de Fer - Le Trône de Fer',
+                'title' => 'Le Trône de Fer',
                 'numberPage' => 576,
                 'description' => 'Le royaume des sept couronnes est sur le point de connaître son plus terrible hiver : par-delà le mur qui garde sa frontière nord, une armée de ténèbres se lève, menaçant de tout détruire sur son passage. Mais il en faut plus pour refroidir les ardeurs des rois, des reines, des chevaliers et des renégats qui se disputent le trône de fer, tous les coups sont permis, et seuls les plus forts, ou les plus retors, s’en sortiront indemnes…',
                 'releaseDate' => new \DateTime('1996-08-06'),
@@ -386,7 +386,7 @@ class AppFixtures extends Fixture
                 'serie' => 3
             ],
             [
-                'title' => 'Le Trône de Fer - Le Donjon Rouge',
+                'title' => 'Le Donjon Rouge',
                 'numberPage' => 576,
                 'description' => 'Le royaume des sept couronnes est sur le point de connaître son plus terrible hiver : par-delà le mur qui garde sa frontière nord, une armée de ténèbres se lève, menaçant de tout détruire sur son passage. Mais il en faut plus pour refroidir les ardeurs des rois, des reines, des chevaliers et des renégats qui se disputent le trône de fer, tous les coups sont permis, et seuls les plus forts, ou les plus retors, s’en sortiront indemnes…',
                 'releaseDate' => new \DateTime('1998-07-02'),
@@ -396,7 +396,7 @@ class AppFixtures extends Fixture
                 'serie' => 3
             ],
             [
-                'title' => 'Le Trône de Fer - La Bataille des Rois',
+                'title' => 'La Bataille des Rois',
                 'numberPage' => 576,
                 'description' => 'Le royaume des sept couronnes est sur le point de connaître son plus terrible hiver : par-delà le mur qui garde sa frontière nord, une armée de ténèbres se lève, menaçant de tout détruire sur son passage. Mais il en faut plus pour refroidir les ardeurs des rois, des reines, des chevaliers et des renégats qui se disputent le trône de fer, tous les coups sont permis, et seuls les plus forts, ou les plus retors, s’en sortiront indemnes…',
                 'releaseDate' => new \DateTime('2000-10-02'),
@@ -406,7 +406,7 @@ class AppFixtures extends Fixture
                 'serie' => 3
             ],
             [
-                'title' => 'Le Trône de Fer - L\'Ombre Maléfique',
+                'title' => 'L\'Ombre Maléfique',
                 'numberPage' => 576,
                 'description' => 'Le royaume des sept couronnes est sur le point de connaître son plus terrible hiver : par-delà le mur qui garde sa frontière nord, une armée de ténèbres se lève, menaçant de tout détruire sur son passage. Mais il en faut plus pour refroidir les ardeurs des rois, des reines, des chevaliers et des renégats qui se disputent le trône de fer, tous les coups sont permis, et seuls les plus forts, ou les plus retors, s’en sortiront indemnes…',
                 'releaseDate' => new \DateTime('2003-06-02'),

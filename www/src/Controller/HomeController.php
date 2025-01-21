@@ -73,24 +73,23 @@ class HomeController extends AbstractController
     public function detailBook(BookRepository $bookRepository, SerieRepository $serieRepository, int $id)
     {
         // Récupération du livre
-        $book = $bookRepository->getSerieByBook($id);
+        $book = $bookRepository->getSerieByBook($id)[0];
 
-        $author = $serieRepository->getAuthorForSerie($book[0]->getSerie()->getId());
+        $authors = $serieRepository->getAuthorForSerie($book->getSerie()->getId());
 
-        $editor = $serieRepository->getEditorForSerie($book[0]->getSerie()->getId());
+        $editors = $serieRepository->getEditorForSerie($book->getSerie()->getId());
 
-        $genres = $serieRepository->getTypesForSerie($book[0]->getSerie()->getId());
-
-        dd($book, $author, $editor, $genres);
+        $types = $serieRepository->getTypesForSerie($book->getSerie()->getId());
 
         // Titre de la page
-        $title = $book[0]->getTitle();
+        $title = $book->getTitle();
 
         return $this->render('home/detail_book.html.twig', [
             'title' => $title,
             'book' => $book,
-            'author' => $author,
-            'editor' => $editor
+            'authors' => $authors,
+            'editors' => $editors,
+            'types' => $types
         ]);
     }
 }

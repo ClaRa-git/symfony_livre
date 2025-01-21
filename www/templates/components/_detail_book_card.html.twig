@@ -1,4 +1,4 @@
-	{# {% set date = book.releaseDate|date('d/m/Y') %}
+	{% set date = book.releaseDate|date('d/m/Y') %}
 
 	<div class="game-detail-card">
 		<div class="game-detail-image">
@@ -6,28 +6,37 @@
 		</div>
 		<div class="game-detail-content">
 			<h1 class="game-title">{{book.title}}</h1>
+            
+            <div class="game-consoles mb-3">
+                {% for type in types %}
+                    <span class="console-badge">{{type.type}}</span>
+                {% endfor %}
+            </div>
 
             <div class="game-info-detail mb-4">
                 <div class="info-item">
-                    <span class="info-label">Auteur :
+                    <span class="info-label">Auteur(s) :
                     </span>
-                    <span class="info-value">{{author.name}} {{author.firstname}}</span>                    
+                    <div class="game-consoles mb-3">
+                        {% for author in authors %}
+                            <span class="info-value">{{author.firstname}} {{author.name}}</span> 
+                        {% endfor %}
+                    </div>                   
                 </div>
                 <div class="info-item">
-                    <span class="info-label">Editeur :
+                    <span class="info-label">Editeur(s) :
                     </span>
-                    <span class="info-value">{{editor.name}}</span>
+                        {% for editor in editors %} 
+                            <span class="info-value">{{editor.editor}}</span>
+                        {% endfor %}                    
                 </div>
-                <div class="info-item">
-                    <span class="info-label">Genre :
-                    </span>
-                    <span class="info-value"
-			<div class="game-info-detail mb-4">
 				<div class="info-item">
 					<span class="info-label">Date de sortie :
 					</span>
 					<span class="info-value">{{date}}</span>
 				</div>
+            </div>
+            <div class="game-info-detail mb-4">
                 <div class="info-item">
                     <span class="info-label">Nombre de pages :
                     </span>
@@ -38,7 +47,7 @@
                     </span>
                     <span class="info-value">{{(book.price/100)|number_format}}</span>
                 </div>
-                <div class="info_item">
+                <div class="info-item">
                     <span class="info-label">ISBN :
                     </span>
                     <span class="info-value">{{book.isbn}}</span>
@@ -49,4 +58,4 @@
 				<p>{{book.description}}</p>
 			</div>
 		</div>
-	</div> #}
+	</div>
