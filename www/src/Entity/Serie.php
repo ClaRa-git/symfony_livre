@@ -52,7 +52,7 @@ class Serie
     /**
      * @var Collection<int, Type>
      */
-    #[ORM\ManyToMany(targetEntity: Type::class, mappedBy: 'serie')]
+    #[ORM\ManyToMany(targetEntity: Type::class, mappedBy: 'serie', cascade: ['persist'])]
     private Collection $types;
 
     /**

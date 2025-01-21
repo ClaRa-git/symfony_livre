@@ -109,7 +109,8 @@ class AppFixtures extends Fixture
             "Mystère",
             "Action",
             "Suspense",
-            "Jeunesse",
+            "Jeunesse"
+
         ];
 
         // Boucle pour créer les genres littéraires
