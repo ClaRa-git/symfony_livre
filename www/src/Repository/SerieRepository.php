@@ -183,7 +183,7 @@ class SerieRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-        /**
+    /**
      * Méthode qui retourne la liste des séries par éditeur
      * @return array
      */
@@ -225,6 +225,54 @@ class SerieRepository extends ServiceEntityRepository
             ->from(Serie::class, 's')
             ->join('s.editors', 'e')
             ->where('e.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    /**
+     * Méthode qui retourne la liste des séries par genres
+     * @return array
+     */
+    public function getCountSeriesByType(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $qb = $entityManager->createQueryBuilder();
+
+        $query = $qb->select([
+            'g.id',
+            'g.label',
+            'COUNT(s.id) as total'
+        ])
+            ->from(Serie::class, 's')
+            ->join('s.types', 'g')
+            ->groupBy('g.id')
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    /**
+     * Méthode pour récupérer les séries par genres
+     * @param int $id
+     * @return array
+     */
+    public function getSeriesByType(int $id): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $qb = $entityManager->createQueryBuilder();
+
+        $query = $qb->select([
+            's.id',
+            's.title',
+            'g.label'
+        ])
+            ->from(Serie::class, 's')
+            ->join('s.types', 'g')
+            ->where('g.id = :id')
             ->setParameter('id', $id)
             ->getQuery();
 

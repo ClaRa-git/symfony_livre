@@ -152,6 +152,35 @@ class HomeController extends AbstractController
     }
 
     /**
+     * Méthode pour afficher les séries par genre
+     * @Route("/series/type/{id}", name="app_series_type")
+     * @param SerieRepository $serieRepository
+     * @return Response
+     */
+    #[Route('/series/type/{id}', name: 'app_series_type')]
+    public function seriesType(SerieRepository $serieRepository, int $id)
+    {
+        //Récupération des datas des série par genre
+        $allSeries = $serieRepository->getSeriesByType($id);
+
+        $series = [];
+        foreach ($allSeries as $serie) {
+            $series[] = [
+                'serie' => $serie,
+                'imagePath' => $serieRepository->getFistBookCover($serie['id'])
+            ];
+        }
+        
+        // Titre de la page
+        $title = "Séries de type : " . $series[0]['serie']['label'];
+
+        return $this->render('home/index.html.twig', [
+            'title' => $title,
+            'series' => $series
+        ]);
+    }
+
+    /**
      * Méthode permettant d'afficher la liste des séries par filtre
      * @Route("/series/filter/{field}", name="app_series_filter")
      * @param SerieRepository $serieRepository

@@ -35,6 +35,15 @@ class NavExtensionRuntime implements RuntimeExtensionInterface
     }
 
     /**
+     * Méthode pour récupérer les séries par genre
+     * @return array
+     */
+    public function menuSeriesType() : array
+    {
+        return $this->serieRepository->getCountSeriesByType();
+    }
+
+    /**
      * Méthode pour récupérer les filtres pour les items
      * @return array
      */

@@ -24,7 +24,7 @@
 						{# on récupère la fonction twig pour récupérer les auteurs #}
 						{% for nav in menu_series_author() %}
 							<li>
-								<a class='dropdown-item' href="{{path('app_series_author',{'id':nav.id})}}">{{nav.firstname}} {{nav.name}}
+								<a class='dropdown-item' href="{{path('app_series_author',{'id':nav.id})}}">{{nav.firstname}} {{nav.name|slice(0,15)}}
 									({{nav.total}})</a>
 							</li>
 						{% endfor %}
@@ -37,7 +37,20 @@
 						{# on récupère la fonction twig pour récupérer les auteurs #}
 						{% for nav in menu_series_editor() %}
 							<li>
-								<a class='dropdown-item' href="{{path('app_series_editor',{'id':nav.id})}}">{{nav.name}}
+								<a class='dropdown-item' href="{{path('app_series_editor',{'id':nav.id})}}">{{nav.name|slice(0,20)}}
+									({{nav.total}})</a>
+							</li>
+						{% endfor %}
+					</ul>
+				</li>
+				<li class='nav-item dropdown'>
+					<a href="#" class='nav-link dropdown-toggle' role='button' data-bs-toggle='dropdown' aria-expanded='false'>Par genres</a>
+					<ul
+						class='dropdown-menu'>
+						{# on récupère la fonction twig pour récupérer les genres #}
+						{% for nav in menu_series_type() %}
+							<li>
+								<a class='dropdown-item' href="{{path('app_series_type',{'id':nav.id})}}">{{nav.label}}
 									({{nav.total}})</a>
 							</li>
 						{% endfor %}
