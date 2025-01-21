@@ -132,4 +132,103 @@ class SerieRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
+
+    /**
+     * Méthode qui retourne la liste des séries par auteur
+     * @return array
+     */
+    public function getCountSeriesByAuthor(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $qb = $entityManager->createQueryBuilder();
+
+        $query = $qb->select([
+            'a.id',
+            'a.firstname',
+            'a.name',
+            'COUNT(s.id) as total'
+        ])
+            ->from(Serie::class, 's')
+            ->join('s.author', 'a')
+            ->groupBy('a.id')
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    /**
+     * Méthode pour récupérer les séries par auteur
+     * @param int $id
+     * @return array
+     */
+    public function getSeriesByAuthor(int $id): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $qb = $entityManager->createQueryBuilder();
+
+        $query = $qb->select([
+            's.id',
+            's.title',
+            'a.firstname',
+            'a.name'
+        ])
+            ->from(Serie::class, 's')
+            ->join('s.author', 'a')
+            ->where('a.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+        /**
+     * Méthode qui retourne la liste des séries par éditeur
+     * @return array
+     */
+    public function getCountSeriesByEditor(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $qb = $entityManager->createQueryBuilder();
+
+        $query = $qb->select([
+            'e.id',
+            'e.name',
+            'COUNT(s.id) as total'
+        ])
+            ->from(Serie::class, 's')
+            ->join('s.editors', 'e')
+            ->groupBy('e.id')
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    /**
+     * Méthode pour récupérer les séries par editeur
+     * @param int $id
+     * @return array
+     */
+    public function getSeriesByEditor(int $id): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $qb = $entityManager->createQueryBuilder();
+
+        $query = $qb->select([
+            's.id',
+            's.title',
+            'e.name'
+        ])
+            ->from(Serie::class, 's')
+            ->join('s.editors', 'e')
+            ->where('e.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
 }

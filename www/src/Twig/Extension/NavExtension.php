@@ -12,16 +12,15 @@ class NavExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            // If your filter generates SAFE HTML, you should add a third
-            // parameter: ['is_safe' => ['html']]
-            // Reference: https://twig.symfony.com/doc/3.x/advanced.html#automatic-escaping
-            new TwigFilter('number_format', [NavExtensionRuntime::class, 'numberFormat'])
+           new TwigFilter('number_format', [NavExtensionRuntime::class, 'numberFormat'])
         ];
     }
 
     public function getFunctions(): array
     {
         return [
+            new TwigFunction('menu_series_author', [NavExtensionRuntime::class, 'menuSeriesAuthor']),
+            new TwigFunction('menu_series_editor', [NavExtensionRuntime::class, 'menuSeriesEditor'])
         ];
     }
 }

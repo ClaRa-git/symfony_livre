@@ -24,7 +24,7 @@ class HomeController extends AbstractController
         foreach ($allSeries as $serie) {
             $series[] = [
                 'serie' => $serie,
-                'cover' => $serieRepository->getFistBookCover($serie->getId())
+                'imagePath' => $serieRepository->getFistBookCover($serie->getId())
             ];
         }
 
@@ -92,4 +92,63 @@ class HomeController extends AbstractController
             'types' => $types
         ]);
     }
+
+    /**
+     * Méthode pour afficher les séries par auteur
+     * @Route("/series/author/{id}", name="app_series_author")
+     * @param SerieRepository $serieRepository
+     * @return Response
+     */
+    #[Route('/series/author/{id}', name: 'app_series_author')]
+    public function seriesAuthor(SerieRepository $serieRepository, int $id)
+    {
+        //Récupération des datas des série par auteur
+        $allSeries = $serieRepository->getSeriesByAuthor($id);
+
+        $series = [];
+        foreach ($allSeries as $serie) {
+            $series[] = [
+                'serie' => $serie,
+                'imagePath' => $serieRepository->getFistBookCover($serie['id'])
+            ];
+        }
+
+        // Titre de la page
+        $title = "Séries de " . $series[0]['serie']['firstname'] . " " . $series[0]['serie']['name'];
+
+        return $this->render('home/index.html.twig', [
+            'title' => $title,
+            'series' => $series
+        ]);
+    }
+
+    /**
+     * Méthode pour afficher les séries par éditeur
+     * @Route("/series/editor/{id}", name="app_series_editor")
+     * @param SerieRepository $serieRepository
+     * @return Response
+     */
+    #[Route('/series/editor/{id}', name: 'app_series_editor')]
+    public function seriesEditor(SerieRepository $serieRepository, int $id)
+    {
+        //Récupération des datas des série par éditeur
+        $allSeries = $serieRepository->getSeriesByEditor($id);
+
+        $series = [];
+        foreach ($allSeries as $serie) {
+            $series[] = [
+                'serie' => $serie,
+                'imagePath' => $serieRepository->getFistBookCover($serie['id'])
+            ];
+        }
+
+        // Titre de la page
+        $title = "Séries de " . $series[0]['serie']['name'];
+
+        return $this->render('home/index.html.twig', [
+            'title' => $title,
+            'series' => $series
+        ]);
+    }
+
 }

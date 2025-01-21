@@ -18,44 +18,30 @@
 					<a class='nav-link active' href="{{path('app_home')}}">Accueil</a>
 				</li>
 				<li class='nav-item dropdown'>
-					<a href="#" class='nav-link dropdown-toggle' role='button' data-bs-toggle='dropdown' aria-expanded='false'>Séries</a>
-					{# <ul
+					<a href="#" class='nav-link dropdown-toggle' role='button' data-bs-toggle='dropdown' aria-expanded='false'>Par auteurs</a>
+					<ul
 						class='dropdown-menu'>
-						{# on récupère la fonction twig pour récupérer les consoles #}
-						{# {% for nav in menu_items_console() %}
+						{# on récupère la fonction twig pour récupérer les auteurs #}
+						{% for nav in menu_series_author() %}
 							<li>
-								<a class='dropdown-item' href="{{path('app_console',{'id':nav.id})}}">{{nav.label}}
+								<a class='dropdown-item' href="{{path('app_series_author',{'id':nav.id})}}">{{nav.firstname}} {{nav.name}}
 									({{nav.total}})</a>
 							</li>
 						{% endfor %}
-					</ul> #}
+					</ul>
 				</li>
 				<li class='nav-item dropdown'>
-					<a href="#" class='nav-link dropdown-toggle' role='button' data-bs-toggle='dropdown' aria-expanded='false'>Auteurs</a>
-					{# <ul
+					<a href="#" class='nav-link dropdown-toggle' role='button' data-bs-toggle='dropdown' aria-expanded='false'>Par éditeurs</a>
+					<ul
 						class='dropdown-menu'>
-						{# on récupère la fonction twig pour récupérer les âges #}
-						{# {% for age in menu_items_age() %}
+						{# on récupère la fonction twig pour récupérer les auteurs #}
+						{% for nav in menu_series_editor() %}
 							<li>
-								<a class='dropdown-item' href="{{path('app_age',{'id':age.id})}}"><img src="{{asset('images/pegi/' ~ age.imagePath)}}" alt="logo du pegi" style="height:30px; width:auto; object-fit:contain" class="m-1">{{age.label}}+ ({{age.total}})</a>
+								<a class='dropdown-item' href="{{path('app_series_editor',{'id':nav.id})}}">{{nav.name}}
+									({{nav.total}})</a>
 							</li>
 						{% endfor %}
-					</ul> #}
-				</li>
-				<li class="nav-item dropdown">
-					<a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Editeurs</a>
-					{# <ul
-						class="dropdown-menu"> #}
-						{# on recupere ici notre fonction twig pour recuperer les consoles #}
-						{# {% for filter in filters_items() %}
-							<li>
-								<a href="{{ path('app_filter', {'field': filter.filter}) }}" class="dropdown-item">
-									{{filter.label}}
-									<i class="{{filter.icon}}"></i>
-								</a>
-							</li>
-						{% endfor %}
-					</ul> #}
+					</ul>
 				</li>
 			</ul>
 		</div>
