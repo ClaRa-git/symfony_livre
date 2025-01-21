@@ -22,6 +22,11 @@ class AppFixtures extends Fixture
         $this->encoder = $encoder;
     }
 
+    /**
+     * Méthode pour charger les données
+     * @param ObjectManager $manager
+     * @return void
+     */
     public function load(ObjectManager $manager)
     {
         // Appel de la méthode pour générer des utilisateurs
@@ -71,7 +76,6 @@ class AppFixtures extends Fixture
 
         // Boucle pour créer les utilisateurs
         foreach ($array_users as $user) {
-            // Création d'un nouvel utilisateur
             $new_user = new User();
             $new_user->setEmail($user['email']);
             $new_user->setPassword($this->encoder->hashPassword($new_user, $user['password']));
@@ -243,7 +247,6 @@ class AppFixtures extends Fixture
             $new_serie->setFinished($value['isFinished']);
 
             // Appel à des références pour les relations
-
             // Boucle pour ajouter les auteurs
             foreach ($value['author'] as $author) {
                 $new_serie->addAuthor($this->getReference('author_' . $author));
@@ -274,6 +277,7 @@ class AppFixtures extends Fixture
      */
     public function loadBooks(ObjectManager $manager): void
     {
+        // Création d'un tableau avec les livres
         $array_books = [
             [
                 'title' => 'Harry Potter à l\'école des sorciers',

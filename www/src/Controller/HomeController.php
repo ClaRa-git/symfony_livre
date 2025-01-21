@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Book;
 use App\Repository\BookRepository;
 use App\Repository\SerieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,6 +10,12 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class HomeController extends AbstractController
 {
+    /**
+     * Méthode permettant d'afficher la page d'accueil
+     * @Route("/", name="app_home")
+     * @param SerieRepository $serieRepository
+     * @return Response
+     */
     #[Route('/', name: 'app_home')]
     public function index(SerieRepository $serieRepository): Response
     {
@@ -20,6 +25,7 @@ class HomeController extends AbstractController
         // Récupération des séries
         $allSeries = $serieRepository->findAll();
 
+        // Création d'un tableau pour stocker les séries et leur image
         $series = [];
         foreach ($allSeries as $serie) {
             $series[] = [
@@ -75,10 +81,9 @@ class HomeController extends AbstractController
         // Récupération du livre
         $book = $bookRepository->getSerieByBook($id)[0];
 
+        // Récupération des auteurs, éditeurs et genres de la série
         $authors = $serieRepository->getAuthorForSerie($book->getSerie()->getId());
-
         $editors = $serieRepository->getEditorForSerie($book->getSerie()->getId());
-
         $types = $serieRepository->getTypesForSerie($book->getSerie()->getId());
 
         // Titre de la page
@@ -105,6 +110,7 @@ class HomeController extends AbstractController
         //Récupération des datas des série par auteur
         $allSeries = $serieRepository->getSeriesByAuthor($id);
 
+        // Création d'un tableau pour stocker les séries et leur image
         $series = [];
         foreach ($allSeries as $serie) {
             $series[] = [
@@ -134,6 +140,7 @@ class HomeController extends AbstractController
         //Récupération des datas des série par éditeur
         $allSeries = $serieRepository->getSeriesByEditor($id);
 
+        // Création d'un tableau pour stocker les séries et leur image
         $series = [];
         foreach ($allSeries as $serie) {
             $series[] = [
@@ -163,6 +170,7 @@ class HomeController extends AbstractController
         //Récupération des datas des série par genre
         $allSeries = $serieRepository->getSeriesByType($id);
 
+        // Création d'un tableau pour stocker les séries et leur image
         $series = [];
         foreach ($allSeries as $serie) {
             $series[] = [
@@ -193,6 +201,7 @@ class HomeController extends AbstractController
         // Récupération des séries
         $allSeries = $serieRepository->getSeriesByFilter($field);
 
+        // Création d'un tableau pour stocker les séries et leur image
         $series = [];
         foreach ($allSeries as $serie) {
             $series[] = [
@@ -201,7 +210,7 @@ class HomeController extends AbstractController
             ];
         }
 
-        // Titre de la page
+        // Titre de la page selon le filtre utilisé
         switch ($field) {
             case 'dateStarted ASC':
                 $field = 'date de sortie croissante';

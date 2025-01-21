@@ -9,6 +9,10 @@ use Twig\TwigFunction;
 
 class NavExtension extends AbstractExtension
 {
+    /**
+     * Méthode pour définir les filtres
+     * @return array
+     */
     public function getFilters(): array
     {
         return [
@@ -16,6 +20,10 @@ class NavExtension extends AbstractExtension
         ];
     }
 
+    /**
+     * Méthode pour définir les fonctions
+     * @return array
+     */
     public function getFunctions(): array
     {
         return [

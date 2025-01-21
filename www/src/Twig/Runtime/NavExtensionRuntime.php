@@ -49,6 +49,7 @@ class NavExtensionRuntime implements RuntimeExtensionInterface
      */
     public function filtersItems()
     {
+        // On retourne un tableau avec les différents filtres
         return [
             ['label' => 'Date de sortie', 'filter' => 'dateStarted ASC', 'icon' => 'fa-sharp fa-solid fa-arrow-up'],
             ['label' => 'Date de sortie', 'filter' => 'dateStarted DESC', 'icon' => 'fa-sharp fa-solid fa-arrow-down'],

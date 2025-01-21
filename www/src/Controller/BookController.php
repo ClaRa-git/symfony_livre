@@ -14,6 +14,12 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('admin/book')]
 final class BookController extends AbstractController
 {
+    /**
+     * Méthode permettant d'afficher la liste des livres
+     * @Route("/", name="app_book_index", methods={"GET"})
+     * @param BookRepository $bookRepository
+     * @return Response
+     */
     #[Route(name: 'app_book_index', methods: ['GET'])]
     public function index(BookRepository $bookRepository): Response
     {
@@ -22,6 +28,13 @@ final class BookController extends AbstractController
         ]);
     }
 
+    /**
+     * Méthode permettant de créer un nouveau livre
+     * @Route("/new", name="app_book_new", methods={"GET", "POST"})
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
     #[Route('/new', name: 'app_book_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -42,6 +55,12 @@ final class BookController extends AbstractController
         ]);
     }
 
+    /**
+     * Méthode permettant d'afficher un livre
+     * @Route("/{id}", name="app_book_show", methods={"GET"})
+     * @param Book $book
+     * @return Response
+     */
     #[Route('/{id}', name: 'app_book_show', methods: ['GET'])]
     public function show(Book $book): Response
     {
@@ -50,6 +69,14 @@ final class BookController extends AbstractController
         ]);
     }
 
+    /**
+     * Méthode permettant de modifier un livre
+     * @Route("/{id}/edit", name="app_book_edit", methods={"GET", "POST"})
+     * @param Request $request
+     * @param Book $book
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
     #[Route('/{id}/edit', name: 'app_book_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Book $book, EntityManagerInterface $entityManager): Response
     {
@@ -68,6 +95,14 @@ final class BookController extends AbstractController
         ]);
     }
 
+    /**
+     * Méthode permettant de supprimer un livre
+     * @Route("/{id}", name="app_book_delete", methods={"POST"})
+     * @param Request $request
+     * @param Book $book
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
     #[Route('/{id}', name: 'app_book_delete', methods: ['POST'])]
     public function delete(Request $request, Book $book, EntityManagerInterface $entityManager): Response
     {
