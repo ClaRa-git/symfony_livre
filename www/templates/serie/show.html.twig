@@ -1,42 +1,72 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Serie{% endblock %}
+{% block title %}Série{% endblock %}
 
 {% block body %}
-    <h1>Serie</h1>
+    <div class="game-detail-card">
+        <div class="game-detail-content">
+            <h1 class="game-title">{{serie.title|slice(0,30)}}</h1>
+            <div class="game-consoles mb-3">
+				{% for type in types %}
+					<span class="console-badge">{{type.label}}</span>
+				{% endfor %}
+			</div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ serie.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ serie.title }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ serie.description }}</td>
-            </tr>
-            <tr>
-                <th>Number_volume</th>
-                <td>{{ serie.numberVolume }}</td>
-            </tr>
-            <tr>
-                <th>DateStarted</th>
-                <td>{{ serie.dateStarted ? serie.dateStarted|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>IsFinished</th>
-                <td>{{ serie.isFinished ? 'Yes' : 'No' }}</td>
-            </tr>
-        </tbody>
-    </table>
+            <div class="game-info-detail mb-4">
+                <div class="info-item">
+                    <span class="info-label">Titre : </span>
+                    </span>
+                    <span class="info-value">{{serie.title}}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Nombre de tomes : </span>
+                    <span class="info-value">{{serie.numberVolume}}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Date de début : </span>
+                    <span class="info-value">{{serie.dateStarted|date('d/m/Y')}}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Terminée : </span>
+                    <span class="info-value">{{serie.isFinished ? 'Oui' : 'Non'}}</span>
+                </div>
+            </div>
 
-    <a href="{{ path('app_serie_index') }}">back to list</a>
+            <div class="game-info-detail mb-4">
+                <div class="info-item">
+                    <span class="info-label">Auteur(s) : </span>
+                    {% for author in authors %}
+                        <span class="info-value">{{author.firstname}} {{author.name}}</span>
+                    {% endfor %}
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Editeur(s) : </span>
+                    {% for editor in editors %}
+                        <span class="info-value">{{editor.name}}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="game-synopsis mb-4">
+				<h2>Description</h2>
+				<p>{{serie.description}}</p>
+			</div>
+            
+            <div class="action-buttons">
+                <div>
+                    {# suppression #}
+                    {% include "serie/_delete_form.html.twig" with {'button_class': 'btn btn-delete'} %}
+                </div>
+                <div>
+                    <a href="{{ path('app_serie_edit', {'id': serie.id}) }}" class="btn btn-edit">Editer</a>
+                </div>
+                <div>
+                    <a href="{{path('app_serie_index')}}" class="btn btn-back">
+                        <i class="fas fa-arrow-left"></i>Retour à la liste</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <a href="{{ path('app_serie_edit', {'id': serie.id}) }}">edit</a>
-
-    {{ include('serie/_delete_form.html.twig') }}
+    
 {% endblock %}

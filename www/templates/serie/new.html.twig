@@ -1,11 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Serie{% endblock %}
+{% block title %}Nouvelle série{% endblock %}
 
 {% block body %}
-    <h1>Create new Serie</h1>
+    <h1>Créer une nouvelle série</h1>
 
     {{ include('serie/_form.html.twig') }}
 
-    <a href="{{ path('app_serie_index') }}">back to list</a>
+    <div class="action-buttons">
+        <a href="{{ path('app_serie_index') }}" class="btn btn-back">
+                    <i class="fas fa-arrow-left"></i>
+                    Retour à la liste
+        </a>
+    </div>
 {% endblock %}

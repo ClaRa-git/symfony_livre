@@ -143,6 +143,10 @@ class AppFixtures extends Fixture
             [
                 'name' => 'Flammarion',
                 'address' => '26 rue Racine, 75006 Paris'
+            ],
+            [
+                'name' => 'Casterman Editeur',
+                'address' => '11 rue de la Montagne, 59000 Lille'
             ]
         ];
 
@@ -182,6 +186,16 @@ class AppFixtures extends Fixture
                 'firstname' => 'George R.R.',
                 'biography' => 'George R.R. Martin est un écrivain américain, auteur de la série Le Trône de Fer. Il est considéré comme l’un des plus grands écrivains de fantasy de tous les temps et a influencé de nombreux auteurs de fantasy et de science-fiction. Il a vendu plus de 90 millions de livres dans le monde entier et a remporté de nombreux prix littéraires pour ses écrits.',
             ],
+            [
+                'name' => 'Kaufman',
+                'firstname' => 'Amie',
+                'biography' => 'Amie Kaufman est une romance australienne, auteure de la série Illuminae. Elle a vendu plus de 10 millions de livres dans le monde entier et a remporté de nombreux prix littéraires pour ses écrits. Elle est également connue pour son engagement en faveur des droits des enfants et des femmes.',
+            ],
+            [
+                'name' => 'Kristoff',
+                'firstname' => 'Jay',
+                'biography' => 'Jay Kristoff est un écrivain australien, auteur de la série Illuminae. Il est considéré comme l’un des plus grands écrivains de science-fiction de tous les temps et a influencé de nombreux auteurs de fantasy et de science-fiction. Il a vendu plus de 10 millions de livres dans le monde entier et a remporté de nombreux prix littéraires pour ses écrits.',
+            ]
         ];
 
         // Boucle pour créer les auteurs
@@ -235,6 +249,16 @@ class AppFixtures extends Fixture
                 'author' => [3],
                 'type' => [3, 5, 14],
                 'editor' => [3]
+            ],
+            [
+                'title' => 'Illuminae',
+                'description' => 'Kady et Ezra, deux adolescents, doivent fuir leur planète natale, Kerenza, attaquée par une entreprise interstellaire. Ils embarquent à bord de l’Hypatia, un vaisseau spatial, mais leur périple est loin d’être terminé. Ils sont poursuivis par l’entreprise BeiTech, qui veut les éliminer pour dissimuler ses crimes. Pour survivre, Kady et Ezra devront s’allier et déjouer les plans de leurs ennemis. Mais dans l’espace, personne ne vous entend crier…',
+                'numberVolumes' => 3,
+                'dateStarted' => new \DateTime('2015-10-20'),
+                'isFinished' => true,
+                'author' => [4, 5],
+                'type' => [3, 4, 14],
+                'editor' => [4]
             ]
         ];
 
@@ -419,6 +443,36 @@ class AppFixtures extends Fixture
                 'price' => 1050,
                 'isbn' => '9782070612420',
                 'serie' => 3
+            ],
+            [
+                'title' => 'Illuminae',
+                'numberPage' => 608,
+                'description' => 'Kady et Ezra, deux adolescents, doivent fuir leur planète natale, Kerenza, attaquée par une entreprise interstellaire. Ils embarquent à bord de l’Hypatia, un vaisseau spatial, mais leur périple est loin d’être terminé. Ils sont poursuivis par l’entreprise BeiTech, qui veut les élimer pour dissimuler ses crimes. Pour survivre, Kady et Ezra devront s’allier et déjouer les plans de leurs ennemis. Mais dans l’espace, personne ne vous entend crier…',
+                'releaseDate' => new \DateTime('2015-10-20'),
+                'imagePath' => 'illuminae-illuminae.jpg',
+                'price' => 1050,
+                'isbn' => '9782070612369',
+                'serie' => 4
+            ],
+            [
+                'title' => 'Gemina',
+                'numberPage' => 672,
+                'description' => 'Kady et Ezra ont survécu à l’attaque de l’Hypatia par l’entreprise BeiTech. Ils ont trouvé refuge à bord de l’Heimdall, un vaisseau spatial. Mais leur périple est loin d’être terminé. Ils sont poursuivis par BeiTech, qui veut les éliminer pour dissimuler ses crimes. Pour survivre, Kady et Ezra devront s’allier et déjouer les plans de leurs ennemis. Mais dans l’espace, personne ne vous entend crier…',
+                'releaseDate' => new \DateTime('2016-10-18'),
+                'imagePath' => 'illuminae-gemina.jpg',
+                'price' => 1050,
+                'isbn' => '9782070612376',
+                'serie' => 4
+            ],
+            [
+                'title' => 'Obsidio',
+                'numberPage' => 624,
+                'description' => 'Kady et Ezra ont survécu à l’attaque de l’Hypatia par l’entreprise BeiTech. Ils ont trouvé refuge à bord de l’Heimdall, un vaisseau spatial. Mais leur périple est loin d’être terminé. Ils sont poursuivis par BeiTech, qui veut les éliminer pour dissimuler ses crimes. Pour survivre, Kady et Ezra devront s’allier et déjouer les plans de leurs ennemis. Mais dans l’espace, personne ne vous entend crier…',
+                'releaseDate' => new \DateTime('2018-03-13'),
+                'imagePath' => 'illuminae-obsidio.jpg',
+                'price' => 1050,
+                'isbn' => '9782070612383',
+                'serie' => 4
             ]
         ];
 

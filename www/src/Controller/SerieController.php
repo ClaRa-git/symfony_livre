@@ -4,7 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Serie;
 use App\Form\SerieType;
+use App\Repository\AuthorRepository;
+use App\Repository\EditorRepository;
 use App\Repository\SerieRepository;
+use App\Repository\TypeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,8 +20,10 @@ final class SerieController extends AbstractController
     #[Route(name: 'app_serie_index', methods: ['GET'])]
     public function index(SerieRepository $serieRepository): Response
     {
+        $series = $serieRepository->getAllInfos();
+
         return $this->render('serie/index.html.twig', [
-            'series' => $serieRepository->findAll(),
+            'series' => $series,
         ]);
     }
 
@@ -43,10 +48,19 @@ final class SerieController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_serie_show', methods: ['GET'])]
-    public function show(Serie $serie): Response
+    public function show(Serie $serie, AuthorRepository $authorRepository, EditorRepository $editorRepository, TypeRepository $typeRepository): Response
     {
+        $authors = $authorRepository->getAuthorsBySerie($serie->getId());
+
+        $editors = $editorRepository->getEditorsBySerie($serie->getId());
+
+        $types = $typeRepository->getTypesBySerie($serie->getId());
+
         return $this->render('serie/show.html.twig', [
             'serie' => $serie,
+            'authors' => $authors,
+            'editors' => $editors,
+            'types' => $types,
         ]);
     }
 

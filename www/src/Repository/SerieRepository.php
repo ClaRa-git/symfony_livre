@@ -271,4 +271,91 @@ class SerieRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
+
+    /**
+     * Méthode pour récupérer toues les informations sur les séries
+     */
+
+    public function getAllInfos(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $qb = $entityManager->createQueryBuilder();
+
+        $query = $qb->select([
+                's.id',
+                's.title',
+                's.dateStarted',
+                's.description',
+                's.number_volume',
+                's.isFinished',
+                'a.id as authorId',
+                'a.firstname',
+                'a.name as authorName',
+                'e.id as editorId',
+                'e.name as editorName',
+                'g.id as typeId',
+                'g.label as typeLabel'
+            ])
+            ->from(Serie::class, 's')
+            ->join('s.author', 'a')
+            ->join('s.editors', 'e')
+            ->join('s.types', 'g')
+            ->getQuery();
+
+        $results = $query->getResult();
+
+        // Regrouper les éditeurs et genres
+        $groupedResults = [];
+        foreach ($results as $result) {
+            $id = $result['id'];
+            if (!isset($groupedResults[$id])) {
+                $groupedResults[$id] = [
+                    'id' => $result['id'],
+                    'title' => $result['title'],
+                    'dateStarted' => $result['dateStarted'],
+                    'description' => $result['description'],
+                    'number_volume' => $result['number_volume'],
+                    'isFinished' => $result['isFinished'],
+                    'authors' => [],
+                    'editors' => [],
+                    'types' => [],
+                ];
+            }
+
+             // Ajouter les auteurs (éviter les doublons si nécessaire)
+            $authorId = $result['authorId'];
+            if (!isset($groupedResults[$id]['authors'][$authorId])) {
+                $groupedResults[$id]['authors'][$authorId] = [
+                    'firstname' => $result['firstname'],
+                    'name' => $result['authorName']
+                ];
+            }
+
+            // Ajouter les éditeurs
+            $editorId = $result['editorId'];
+            if (!isset($groupedResults[$id]['editors'][$editorId])) {
+                $groupedResults[$id]['editors'][$editorId] = [
+                    'name' => $result['editorName']
+                ];
+            }
+
+            // Ajouter les types
+            $typeId = $result['typeId'];
+            if (!isset($groupedResults[$id]['types'][$typeId])) {
+                $groupedResults[$id]['types'][$typeId] = [
+                    'label' => $result['typeLabel']
+                ];
+            }
+        }
+
+        // Convertir les collections associatives en simples tableaux indexés
+        foreach ($groupedResults as &$serie) {
+            $serie['authors'] = array_values($serie['authors']);
+            $serie['editors'] = array_values($serie['editors']);
+            $serie['types'] = array_values($serie['types']);
+        }
+
+        return array_values($groupedResults); // Retourner un tableau indexé
+    }
 }
