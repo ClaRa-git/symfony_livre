@@ -67,4 +67,20 @@ class BookRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
+
+        /**
+     * Méthode pour créer un livre
+     * @param Book $book
+     * @param bool $flush
+     * @return void
+     */
+    public function save(Book $book, bool $flush = true): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($book);
+
+        if ($flush) {
+            $entityManager->flush();
+        }
+    }
 }

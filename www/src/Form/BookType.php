@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\File\File as FileFile;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 
@@ -73,7 +74,7 @@ class BookType extends AbstractType
                     'placeholder' => 'Prix'
                 ]
             ])
-            ->add('isbn', IntegerType::class, [
+            ->add('isbn', TextType::class, [
                 'label' => 'ISBN',
                 'attr' => [
                     'placeholder' => 'ISBN'

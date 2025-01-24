@@ -45,7 +45,7 @@ final class SerieController extends AbstractController
                 // On déplace le fichier dans le dossier public/images
                 try {
                     $imageFile->move(
-                        $this->getParameter('images_directory'),
+                        $this->getParameter('covers_images_directory'),
                         $newFilename
                     );
                 } catch (FileException $e) {
@@ -92,7 +92,7 @@ final class SerieController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // Gestion de l'image uploadée
-            $imageFile = $form->get('image')->getData();
+            $imageFile = $form->get('imagePath')->getData();
             if ($imageFile) {
                 $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
                 // On génère un nom de fichier unique
@@ -100,7 +100,7 @@ final class SerieController extends AbstractController
                 // On déplace le fichier dans le dossier public/images
                 try {
                     $imageFile->move(
-                        $this->getParameter('game_images_directory'),
+                        $this->getParameter('covers_images_directory'),
                         $newFilename
                     );
                 } catch (FileException $e) {

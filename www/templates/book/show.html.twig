@@ -7,7 +7,7 @@
 {% block body %}
 	<div class="game-detail-card">
 		<div class="game-detail-image">
-			<img src="{{asset('images/' ~ book.imagePath)}}" alt="{{book.title}}">
+			<img src="{{asset('images/covers/' ~ book.imagePath)}}" alt="{{book.title}}">
 		</div>
 		<div class="game-detail-content">
 			<h1 class="game-title">{{book.title|slice(0,60)}}</h1>

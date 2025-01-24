@@ -36,7 +36,8 @@ class SerieType extends AbstractType
                 ]
             ])
             ->add('imagePath', FileType::class, [
-                'label' => 'Image du jeu',
+                'label' => 'Image de la série',
+                'mapped' => false,
                 'constraints' => [
                     new File([
                         'maxSize' => '5000k',

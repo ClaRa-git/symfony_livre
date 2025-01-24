@@ -24,7 +24,7 @@
             <td>{{ book.description|slice(0,50) ~ '...' }}</td>
             <td>{{ book.releaseDate ? book.releaseDate|date('d/m/Y') }}</td>
             <td>
-				<img src="{{asset('images/' ~ book.imagePath)}}" alt="{{book.title}}" class="game-image-admin">
+				<img src="{{asset('images/covers/' ~ book.imagePath)}}" alt="{{book.title}}" class="game-image-admin">
 			</td>            
             <td>{{ (book.price/100)|number_format }}</td>
             <td>{{ book.isbn }}</td>

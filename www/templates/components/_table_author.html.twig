@@ -3,8 +3,8 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Nom</th>
                     <th>Prénom</th>
+                    <th>Nom</th>
                     <th>Biographie</th>
                     <th>Actions</th>
                 </tr>
@@ -13,8 +13,8 @@
             {% for author in authors %}
                 <tr>
                     <td>{{ author.id }}</td>
-                    <td>{{ author.name }}</td>
                     <td>{{ author.firstname }}</td>
+                    <td>{{ author.name }}</td>
                     <td>{{ author.biography|slice(0,50) ~ '...'}}</td>
                     <td>
                         <div class="game-actions">
