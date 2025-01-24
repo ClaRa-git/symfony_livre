@@ -16,6 +16,17 @@
 
     <div class="form-group">
         {{ form_label(form.imagePath) }}
+
+        {# Si une image actuelle est présente, on l'affiche #}
+        {% if form.currentImage is defined and form.currentImage.vars.value %}
+            <div class="current-image">
+                <label>Image actuelle :</label>
+                <img src="{{ asset('images/covers/' ~ form.currentImage.vars.value) }}" 
+                    alt="Image actuelle" 
+                    style="max-width: 150px; margin-bottom: 10px;">
+            </div>
+        {% endif %}
+
         {{ form_widget(form.imagePath) }}
         {{ form_errors(form.imagePath) }}
     </div>

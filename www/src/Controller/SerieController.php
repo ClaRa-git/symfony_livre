@@ -32,7 +32,7 @@ final class SerieController extends AbstractController
     public function new(Request $request, SerieRepository $serieRepository): Response
     {
         $serie = new Serie();
-        $form = $this->createForm(SerieType::class, $serie);
+        $form = $this->createForm(SerieType::class, $serie, ['is_edit' => false]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -87,7 +87,9 @@ final class SerieController extends AbstractController
     #[Route('/{id}/edit', name: 'app_serie_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Serie $serie, SerieRepository $serieRepository): Response
     {
-        $form = $this->createForm(SerieType::class, $serie);
+        $form = $this->createForm(SerieType::class, $serie, ['is_edit' => true]);
+        $form->get('currentImage')->setData($serie->getImagePath()); // Préremplit le champ caché avec l'image actuelle
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -97,21 +99,23 @@ final class SerieController extends AbstractController
                 $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
                 // On génère un nom de fichier unique
                 $newFilename = $originalFilename . '-' . uniqid() . '.' . $imageFile->guessExtension();
-                // On déplace le fichier dans le dossier public/images
+
                 try {
+                    // On déplace le fichier dans le dossier configuré
                     $imageFile->move(
                         $this->getParameter('covers_images_directory'),
                         $newFilename
                     );
+                    $serie->setImagePath($newFilename); // Met à jour le chemin de l'image
                 } catch (FileException $e) {
                     $this->addFlash('danger', 'Une erreur est survenue lors de l\'upload de l\'image');
                 }
-
-                // On set le nom de l'image dans l'entité
-                $serie->setImagePath($newFilename);
+            } else {
+                // Conserver l'image actuelle si aucune nouvelle image n'est uploadée
+                $serie->setImagePath($form->get('currentImage')->getData());
             }
 
-            // On enregistre le jeu dans la BDD
+            // Enregistrement de l'entité
             $serieRepository->save($serie, true);
 
             return $this->redirectToRoute('app_serie_index', [], Response::HTTP_SEE_OTHER);
@@ -119,10 +123,9 @@ final class SerieController extends AbstractController
 
         return $this->render('serie/edit.html.twig', [
             'serie' => $serie,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
-
     #[Route('/{id}', name: 'app_serie_delete', methods: ['POST'])]
     public function delete(Request $request, Serie $serie, EntityManagerInterface $entityManager): Response
     {

@@ -11,6 +11,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -33,26 +34,6 @@ class SerieType extends AbstractType
                 'label' => 'Description de la série',
                 'attr' => [
                     'placeholder' => 'Description'
-                ]
-            ])
-            ->add('imagePath', FileType::class, [
-                'label' => 'Image de la série',
-                'mapped' => false,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '5000k',
-                        'mimeTypes' => [
-                            'image/jpeg',
-                            'image/png',
-                            'image/jpg',
-                            'image/gif',
-                            'image/webp'
-                        ],
-                        'mimeTypesMessage' => 'Merci de choisir un format d\'image valide (jpeg, jpg, png, gif, webp)',
-                    ])
-                ],
-                'attr' => [
-                    'class' => 'form-control'
                 ]
             ])
             ->add('number_volume', IntegerType::class, [
@@ -112,12 +93,64 @@ class SerieType extends AbstractType
                 ]
             ])
         ;
+
+        if (!$options['is_edit']) {
+            $builder
+                ->add('imagePath', FileType::class, [
+                    'label' => 'Image de la série',
+                    'mapped' => false,
+                    'constraints' => [
+                        new File([
+                            'maxSize' => '5000k',
+                            'mimeTypes' => [
+                                'image/jpeg',
+                                'image/png',
+                                'image/jpg',
+                                'image/gif',
+                                'image/webp'
+                            ],
+                            'mimeTypesMessage' => 'Merci de choisir un format d\'image valide (jpeg, jpg, png, gif, webp)',
+                        ])
+                    ],
+                    'attr' => [
+                        'class' => 'form-control'
+                    ]
+                ]);
+        }
+
+        if ($options['is_edit']) {
+            $builder->add('imagePath', FileType::class, [
+                'label' => 'Image de la série',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '5000k',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/jpg',
+                            'image/gif',
+                            'image/webp'
+                        ],
+                        'mimeTypesMessage' => 'Merci de choisir un format d\'image valide (jpeg, jpg, png, gif, webp)',
+                    ])
+                ],
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('currentImage', HiddenType::class, [
+                'mapped' => false
+            ]);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Serie::class,
+            'is_edit' => false
         ]);
     }
 }
