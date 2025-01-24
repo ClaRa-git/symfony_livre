@@ -41,7 +41,7 @@ final class BookController extends AbstractController
     public function new(Request $request, BookRepository $bookRepository): Response
     {
         $book = new Book();
-        $form = $this->createForm(BookType::class, $book);
+        $form = $this->createForm(BookType::class, $book, ['is_edit' => false]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -112,28 +112,33 @@ final class BookController extends AbstractController
     #[Route('/{id}/edit', name: 'app_book_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Book $book, BookRepository $bookRepository): Response
     {
-        $form = $this->createForm(BookType::class, $book);
+        $form = $this->createForm(BookType::class, $book, ['is_edit' => true]);
+        $form->get('currentImage')->setData($book->getImagePath()); // Préremplit le champ caché avec l'image actuelle
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // Gestion de l'image uploadée
             $imageFile = $form->get('imagePath')->getData();
+            $imageFile = $form->get('imagePath')->getData();
             if ($imageFile) {
                 $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
                 // On génère un nom de fichier unique
                 $newFilename = $originalFilename . '-' . uniqid() . '.' . $imageFile->guessExtension();
-                // On déplace le fichier dans le dossier public/images
+
                 try {
+                    // On déplace le fichier dans le dossier configuré
                     $imageFile->move(
                         $this->getParameter('covers_images_directory'),
                         $newFilename
                     );
+                    $book->setImagePath($newFilename); // Met à jour le chemin de l'image
                 } catch (FileException $e) {
                     $this->addFlash('danger', 'Une erreur est survenue lors de l\'upload de l\'image');
                 }
-
-                // On set le nom de l'image dans l'entité
-                $book->setImagePath($newFilename);
+            } else {
+                // Conserver l'image actuelle si aucune nouvelle image n'est uploadée
+                $book->setImagePath($form->get('currentImage')->getData());
             }
 
             $bookRepository->save($book, true);

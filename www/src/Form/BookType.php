@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -47,27 +48,6 @@ class BookType extends AbstractType
                     'class' => 'form-control'
                 ],
             ])
-            ->add('imagePath', FileType::class, [
-                'label' => 'Image du livre',
-                'mapped' => false,
-                'required' => true,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '5000k',
-                        'mimeTypes' => [
-                            'image/jpeg',
-                            'image/png',
-                            'image/jpg',
-                            'image/gif',
-                            'image/webp',
-                        ],
-                        'mimeTypesMessage' => 'Merci de choisir un format d\'image valide (jpeg, jpg, png, gif, webp)',
-                    ])
-                ],
-                'attr' => [
-                    'class' => 'form-control'
-                ]
-            ])
             ->add('price', IntegerType::class, [
                 'label' => 'Prix',
                 'attr' => [
@@ -91,12 +71,66 @@ class BookType extends AbstractType
                 'expanded' => true
             ])
         ;
+
+        if (!$options['is_edit']) {
+            $builder
+                ->add('imagePath', FileType::class, [
+                    'label' => 'Couverture du livre',
+                    'mapped' => false,
+                    'required' => true,
+                    'constraints' => [
+                        new File([
+                            'maxSize' => '5000k',
+                            'mimeTypes' => [
+                                'image/jpeg',
+                                'image/png',
+                                'image/jpg',
+                                'image/gif',
+                                'image/webp'
+                            ],
+                            'mimeTypesMessage' => 'Merci de choisir un format d\'image valide (jpeg, jpg, png, gif, webp)',
+                        ])
+                    ],
+                    'attr' => [
+                        'class' => 'form-control'
+                    ]
+                ]);
+        }
+
+        if ($options['is_edit']) {
+            $builder->add('imagePath', FileType::class, [
+                'label' => 'Couverture du livre',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '5000k',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/jpg',
+                            'image/gif',
+                            'image/webp'
+                        ],
+                        'mimeTypesMessage' => 'Merci de choisir un format d\'image valide (jpeg, jpg, png, gif, webp)',
+                    ])
+                ],
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('currentImage', HiddenType::class, [
+                'mapped' => false
+            ]);
+        }
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Book::class,
+            'is_edit' => false
         ]);
     }
 }

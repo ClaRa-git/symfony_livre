@@ -99,6 +99,7 @@ class SerieType extends AbstractType
                 ->add('imagePath', FileType::class, [
                     'label' => 'Image de la série',
                     'mapped' => false,
+                    'required' => true,
                     'constraints' => [
                         new File([
                             'maxSize' => '5000k',
