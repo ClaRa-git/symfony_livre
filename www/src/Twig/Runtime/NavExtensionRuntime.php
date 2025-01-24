@@ -82,7 +82,6 @@ class NavExtensionRuntime implements RuntimeExtensionInterface
      */
     public function badgeUser($roles): string
     {
-
         switch ($roles[0]) {
             case 'ROLE_ADMIN':
                 return  '<span class="badge text-bg-warning">Admin</span>';

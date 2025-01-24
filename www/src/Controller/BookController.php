@@ -41,6 +41,7 @@ final class BookController extends AbstractController
     public function new(Request $request, BookRepository $bookRepository): Response
     {
         $book = new Book();
+        // Création du formulaire avec option is_edit à false pour afficher le champ imagePath
         $form = $this->createForm(BookType::class, $book, ['is_edit' => false]);
         $form->handleRequest($request);
 
@@ -90,6 +91,7 @@ final class BookController extends AbstractController
         $editors = $serieRepository->getEditorForSerie($book->getSerie()->getId());
         $types = $serieRepository->getTypesForSerie($book->getSerie()->getId());
         
+        // Récupération du titre du livre pour le titre de la page
         $title = $book->getTitle();
 
         return $this->render('book/show.html.twig', [
@@ -112,6 +114,7 @@ final class BookController extends AbstractController
     #[Route('/{id}/edit', name: 'app_book_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Book $book, BookRepository $bookRepository): Response
     {
+        // Création du formulaire avec option is_edit à true pour permettre le non changement de l'image
         $form = $this->createForm(BookType::class, $book, ['is_edit' => true]);
         $form->get('currentImage')->setData($book->getImagePath()); // Préremplit le champ caché avec l'image actuelle
 

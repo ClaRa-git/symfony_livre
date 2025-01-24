@@ -14,6 +14,12 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/author')]
 final class AuthorController extends AbstractController
 {
+    /**
+     * Méthode qui renvoie la page d'index des auteurs
+     * @Route("/", name="app_author_index", methods={"GET"})
+     * @param AuthorRepository $authorRepository
+     * @return Response
+     */
     #[Route(name: 'app_author_index', methods: ['GET'])]
     public function index(AuthorRepository $authorRepository): Response
     {
@@ -22,6 +28,13 @@ final class AuthorController extends AbstractController
         ]);
     }
 
+    /**
+     * Méthode qui renvoie le formulaire de création d'un auteur
+     * @Route("/new", name="app_author_new", methods={"GET", "POST"})
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
     #[Route('/new', name: 'app_author_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -42,6 +55,12 @@ final class AuthorController extends AbstractController
         ]);
     }
 
+    /**
+     * Méthode qui renvoie la page de détail d'un auteur
+     * @Route("/{id}", name="app_author_show", methods={"GET"})
+     * @param Author $author
+     * @return Response
+     */
     #[Route('/{id}', name: 'app_author_show', methods: ['GET'])]
     public function show(Author $author): Response
     {
@@ -50,6 +69,14 @@ final class AuthorController extends AbstractController
         ]);
     }
 
+    /**
+     * Méthode qui renvoie le formulaire d'édition d'un auteur
+     * @Route("/{id}/edit", name="app_author_edit", methods={"GET", "POST"})
+     * @param Request $request
+     * @param Author $author
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
     #[Route('/{id}/edit', name: 'app_author_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Author $author, EntityManagerInterface $entityManager): Response
     {
@@ -68,6 +95,14 @@ final class AuthorController extends AbstractController
         ]);
     }
 
+    /**
+     * Méthode qui supprime un auteur
+     * @Route("/{id}", name="app_author_delete", methods={"POST"})
+     * @param Request $request
+     * @param Author $author
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
     #[Route('/{id}', name: 'app_author_delete', methods: ['POST'])]
     public function delete(Request $request, Author $author, EntityManagerInterface $entityManager): Response
     {

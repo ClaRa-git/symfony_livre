@@ -18,6 +18,11 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/serie')]
 final class SerieController extends AbstractController
 {
+    /**
+     * Méthode permettant d'afficher la liste des séries
+     * @param SerieRepository $serieRepository
+     * @return Response
+     */
     #[Route(name: 'app_serie_index', methods: ['GET'])]
     public function index(SerieRepository $serieRepository): Response
     {
@@ -28,10 +33,17 @@ final class SerieController extends AbstractController
         ]);
     }
 
+    /**
+     * Méthode permettant de créer une nouvelle série
+     * @param Request $request
+     * @param SerieRepository $serieRepository
+     * @return Response
+     */
     #[Route('/new', name: 'app_serie_new', methods: ['GET', 'POST'])]
     public function new(Request $request, SerieRepository $serieRepository): Response
     {
         $serie = new Serie();
+        // Création du formulaire avec option is_edit à false pour afficher le champ imagePath
         $form = $this->createForm(SerieType::class, $serie, ['is_edit' => false]);
         $form->handleRequest($request);
 
@@ -67,6 +79,14 @@ final class SerieController extends AbstractController
         ]);
     }
 
+    /**
+     * Méthode permettant d'afficher une série
+     * @param Serie $serie
+     * @param AuthorRepository $authorRepository
+     * @param EditorRepository $editorRepository
+     * @param TypeRepository $typeRepository
+     * @return Response
+     */
     #[Route('/{id}', name: 'app_serie_show', methods: ['GET'])]
     public function show(Serie $serie, AuthorRepository $authorRepository, EditorRepository $editorRepository, TypeRepository $typeRepository): Response
     {
@@ -84,9 +104,17 @@ final class SerieController extends AbstractController
         ]);
     }
 
+    /**
+     * Méthode permettant de modifier une série
+     * @param Request $request
+     * @param Serie $serie
+     * @param SerieRepository $serieRepository
+     * @return Response
+     */
     #[Route('/{id}/edit', name: 'app_serie_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Serie $serie, SerieRepository $serieRepository): Response
     {
+        // Création du formulaire avec option is_edit à true pour permettre le non changement de l'image
         $form = $this->createForm(SerieType::class, $serie, ['is_edit' => true]);
         $form->get('currentImage')->setData($serie->getImagePath()); // Préremplit le champ caché avec l'image actuelle
 
@@ -126,6 +154,14 @@ final class SerieController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * Méthode permettant de supprimer une série
+     * @param Request $request
+     * @param Serie $serie
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
     #[Route('/{id}', name: 'app_serie_delete', methods: ['POST'])]
     public function delete(Request $request, Serie $serie, EntityManagerInterface $entityManager): Response
     {

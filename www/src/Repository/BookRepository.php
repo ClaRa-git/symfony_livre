@@ -68,7 +68,7 @@ class BookRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-        /**
+    /**
      * Méthode pour créer un livre
      * @param Book $book
      * @param bool $flush

@@ -14,6 +14,12 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/type')]
 final class TypeController extends AbstractController
 {
+    /**
+     * Méthode permettant d'afficher la liste des genres
+     * @Route("/", name="app_type_index", methods={"GET"})
+     * @param TypeRepository $typeRepository
+     * @return Response
+     */
     #[Route(name: 'app_type_index', methods: ['GET'])]
     public function index(TypeRepository $typeRepository): Response
     {
@@ -22,6 +28,13 @@ final class TypeController extends AbstractController
         ]);
     }
 
+    /**
+     * Méthode permettant de créer un nouveau genre
+     * @Route("/new", name="app_type_new", methods={"GET","POST"})
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
     #[Route('/new', name: 'app_type_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -42,6 +55,12 @@ final class TypeController extends AbstractController
         ]);
     }
 
+    /**
+     * Méthode permettant d'afficher un genre
+     * @Route("/{id}", name="app_type_show", methods={"GET"})
+     * @param Type $type
+     * @return Response
+     */
     #[Route('/{id}', name: 'app_type_show', methods: ['GET'])]
     public function show(Type $type): Response
     {
@@ -50,6 +69,14 @@ final class TypeController extends AbstractController
         ]);
     }
 
+    /**
+     * Méthode permettant de modifier un genre
+     * @Route("/{id}/edit", name="app_type_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param Type $type
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
     #[Route('/{id}/edit', name: 'app_type_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Type $type, EntityManagerInterface $entityManager): Response
     {
@@ -68,6 +95,14 @@ final class TypeController extends AbstractController
         ]);
     }
 
+    /**
+     * Méthode permettant de supprimer un genre
+     * @Route("/{id}", name="app_type_delete", methods={"POST"})
+     * @param Request $request
+     * @param Type $type
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
     #[Route('/{id}', name: 'app_type_delete', methods: ['POST'])]
     public function delete(Request $request, Type $type, EntityManagerInterface $entityManager): Response
     {

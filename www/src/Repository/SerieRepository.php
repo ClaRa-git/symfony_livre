@@ -253,7 +253,6 @@ class SerieRepository extends ServiceEntityRepository
     /**
      * Méthode pour récupérer toutes les informations sur les séries
      */
-
     public function getAllInfos(): array
     {
         $entityManager = $this->getEntityManager();

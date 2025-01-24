@@ -94,6 +94,7 @@ class SerieType extends AbstractType
             ])
         ;
 
+        // Si on est en mode création, on ajoute le champ image et on le rend obligatoire
         if (!$options['is_edit']) {
             $builder
                 ->add('imagePath', FileType::class, [
@@ -119,6 +120,10 @@ class SerieType extends AbstractType
                 ]);
         }
 
+        // Si on est en mode édition, pour ne pas avoir à recharger 
+        // l'image à chaque fois si on ne veut pas la changer
+        // Le champ imagePath n'est pas obligatoire et on ajoute un 
+        // champ caché pour stocker le nom de l'image actuelle
         if ($options['is_edit']) {
             $builder->add('imagePath', FileType::class, [
                 'label' => 'Image de la série',
@@ -151,7 +156,7 @@ class SerieType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Serie::class,
-            'is_edit' => false
+            'is_edit' => false // On rajoute une option pour savoir si on est en mode édition ou non
         ]);
     }
 }
