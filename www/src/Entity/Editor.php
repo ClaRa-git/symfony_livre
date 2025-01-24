@@ -24,12 +24,12 @@ class Editor
     /**
      * @var Collection<int, Serie>
      */
-    #[ORM\ManyToMany(targetEntity: Serie::class, inversedBy: 'editors')]
-    private Collection $serie;
+    #[ORM\ManyToMany(targetEntity: Serie::class, mappedBy: 'editors')]
+    private Collection $series;
 
     public function __construct()
     {
-        $this->serie = new ArrayCollection();
+        $this->series = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -64,23 +64,26 @@ class Editor
     /**
      * @return Collection<int, Serie>
      */
-    public function getSerie(): Collection
+    public function getSeries(): Collection
     {
-        return $this->serie;
+        return $this->series;
     }
 
-    public function addSerie(Serie $serie): static
+    public function addSeries(Serie $series): static
     {
-        if (!$this->serie->contains($serie)) {
-            $this->serie->add($serie);
+        if (!$this->series->contains($series)) {
+            $this->series->add($series);
+            $series->addEditor($this);
         }
 
         return $this;
     }
 
-    public function removeSerie(Serie $serie): static
+    public function removeSeries(Serie $series): static
     {
-        $this->serie->removeElement($serie);
+        if ($this->series->removeElement($series)) {
+            $series->removeEditor($this);
+        }
 
         return $this;
     }

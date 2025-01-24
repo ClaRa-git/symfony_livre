@@ -23,16 +23,7 @@ class HomeController extends AbstractController
         $title = "Toutes nos séries";
 
         // Récupération des séries
-        $allSeries = $serieRepository->findAll();
-
-        // Création d'un tableau pour stocker les séries et leur image
-        $series = [];
-        foreach ($allSeries as $serie) {
-            $series[] = [
-                'serie' => $serie,
-                'imagePath' => $serieRepository->getFistBookCover($serie->getId())
-            ];
-        }
+        $series = $serieRepository->findAll();
 
         return $this->render('home/index.html.twig', [
             'title' => $title,

@@ -1,50 +1,81 @@
+{% set date = book.releaseDate|date('d/m/Y') %}
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Book{% endblock %}
+{% block title %}Livre{% endblock %}
 
 {% block body %}
-    <h1>Book</h1>
+	<div class="game-detail-card">
+		<div class="game-detail-image">
+			<img src="{{asset('images/' ~ book.imagePath)}}" alt="{{book.title}}">
+		</div>
+		<div class="game-detail-content">
+			<h1 class="game-title">{{book.title|slice(0,60)}}</h1>
+            
+            <div class="game-consoles mb-3">
+                {% for type in types %}
+                    <span class="console-badge">{{type.type}}</span>
+                {% endfor %}
+            </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ book.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ book.title }}</td>
-            </tr>
-            <tr>
-                <th>NumberPage</th>
-                <td>{{ book.numberPage }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ book.description }}</td>
-            </tr>
-            <tr>
-                <th>ReleaseDate</th>
-                <td>{{ book.releaseDate ? book.releaseDate|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>ImagePath</th>
-                <td>{{ book.imagePath }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ book.price }}</td>
-            </tr>
-            <tr>
-                <th>Isbn</th>
-                <td>{{ book.isbn }}</td>
-            </tr>
-        </tbody>
-    </table>
+            <div class="game-info-detail mb-4">
+                <div class="info-item">
+                    <span class="info-label">Auteur(s) :
+                    </span>
+                    <div class="game-consoles mb-3">
+                        {% for author in authors %}
+                            <span class="info-value">{{author.firstname}} {{author.name}}</span> 
+                        {% endfor %}
+                    </div>                   
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Editeur(s) :
+                    </span>
+                        {% for editor in editors %} 
+                            <span class="info-value">{{editor.editor}}</span>
+                        {% endfor %}                    
+                </div>
+				<div class="info-item">
+					<span class="info-label">Date de sortie :
+					</span>
+					<span class="info-value">{{date}}</span>
+				</div>
+            </div>
+            <div class="game-info-detail mb-4">
+                <div class="info-item">
+                    <span class="info-label">Nombre de pages :
+                    </span>
+                    <span class="info-value">{{book.numberPage}}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Prix :
+                    </span>
+                    <span class="info-value">{{(book.price/100)|number_format}}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">ISBN :
+                    </span>
+                    <span class="info-value">{{book.isbn}}</span>
+                </div>
+			</div>
+			<div class="game-synopsis mb-4">
+				<h2>Synopsis</h2>
+				<p>{{book.description}}</p>
+            </div>	
+            <div class="action-buttons">
+                <div>
+                    {# suppression #}
+                    {% include "book/_delete_form.html.twig" with {'button_class': 'btn btn-delete'} %}
+                </div>
+                <div>
+                    <a href="{{ path('app_book_edit', {'id': book.id}) }}" class="btn btn-edit">Editer</a>
+                </div>
+                <div>
+                    <a href="{{path('app_book_index')}}" class="btn btn-back">
+                        <i class="fas fa-arrow-left"></i>Retour à la liste</a>
+                </div>
+            </div>
+		</div>
+    </div>
 
-    <a href="{{ path('app_book_index') }}">back to list</a>
-
-    <a href="{{ path('app_book_edit', {'id': book.id}) }}">edit</a>
-
-    {{ include('book/_delete_form.html.twig') }}
 {% endblock %}

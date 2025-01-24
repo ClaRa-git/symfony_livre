@@ -31,11 +31,26 @@ class Serie
     #[ORM\Column]
     private ?bool $isFinished = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $imagePath = null;
+
+    /**
+     * @var Collection<int, Author>
+     */
+    #[ORM\ManyToMany(targetEntity: Author::class, inversedBy: 'series', cascade: ['persist'])]
+    private Collection $authors;
+
     /**
      * @var Collection<int, Editor>
      */
-    #[ORM\ManyToMany(targetEntity: Editor::class, mappedBy: 'serie')]
+    #[ORM\ManyToMany(targetEntity: Editor::class, inversedBy: 'series')]
     private Collection $editors;
+
+    /**
+     * @var Collection<int, Type>
+     */
+    #[ORM\ManyToMany(targetEntity: Type::class, inversedBy: 'series')]
+    private Collection $types;
 
     /**
      * @var Collection<int, Book>
@@ -43,24 +58,12 @@ class Serie
     #[ORM\OneToMany(targetEntity: Book::class, mappedBy: 'serie')]
     private Collection $books;
 
-    /**
-     * @var Collection<int, Type>
-     */
-    #[ORM\ManyToMany(targetEntity: Type::class, mappedBy: 'serie', cascade: ['persist'])]
-    private Collection $types;
-
-    /**
-     * @var Collection<int, Author>
-     */
-    #[ORM\ManyToMany(targetEntity: Author::class, inversedBy: 'series')]
-    private Collection $author;
-
     public function __construct()
     {
+        $this->authors = new ArrayCollection();
         $this->editors = new ArrayCollection();
-        $this->books = new ArrayCollection();
         $this->types = new ArrayCollection();
-        $this->author = new ArrayCollection();
+        $this->books = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -121,9 +124,45 @@ class Serie
         return $this->isFinished;
     }
 
-    public function setFinished(bool $isFinished): static
+    public function setIsFinished(bool $isFinished): static
     {
         $this->isFinished = $isFinished;
+
+        return $this;
+    }
+    
+    public function getImagePath(): ?string
+    {
+        return $this->imagePath;
+    }
+
+    public function setImagePath(string $imagePath): static
+    {
+        $this->imagePath = $imagePath;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Author>
+     */
+    public function getAuthors(): Collection
+    {
+        return $this->authors;
+    }
+
+    public function addAuthor(Author $author): static
+    {
+        if (!$this->authors->contains($author)) {
+            $this->authors->add($author);
+        }
+
+        return $this;
+    }
+
+    public function removeAuthor(Author $author): static
+    {
+        $this->authors->removeElement($author);
 
         return $this;
     }
@@ -140,7 +179,6 @@ class Serie
     {
         if (!$this->editors->contains($editor)) {
             $this->editors->add($editor);
-            $editor->addSerie($this);
         }
 
         return $this;
@@ -148,9 +186,31 @@ class Serie
 
     public function removeEditor(Editor $editor): static
     {
-        if ($this->editors->removeElement($editor)) {
-            $editor->removeSerie($this);
+        $this->editors->removeElement($editor);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Type>
+     */
+    public function getTypes(): Collection
+    {
+        return $this->types;
+    }
+
+    public function addType(Type $type): static
+    {
+        if (!$this->types->contains($type)) {
+            $this->types->add($type);
         }
+
+        return $this;
+    }
+
+    public function removeType(Type $type): static
+    {
+        $this->types->removeElement($type);
 
         return $this;
     }
@@ -181,57 +241,6 @@ class Serie
                 $book->setSerie(null);
             }
         }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Type>
-     */
-    public function getTypes(): Collection
-    {
-        return $this->types;
-    }
-
-    public function addType(Type $type): static
-    {
-        if (!$this->types->contains($type)) {
-            $this->types->add($type);
-            $type->addSerie($this);
-        }
-
-        return $this;
-    }
-
-    public function removeType(Type $type): static
-    {
-        if ($this->types->removeElement($type)) {
-            $type->removeSerie($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Author>
-     */
-    public function getAuthor(): Collection
-    {
-        return $this->author;
-    }
-
-    public function addAuthor(Author $author): static
-    {
-        if (!$this->author->contains($author)) {
-            $this->author->add($author);
-        }
-
-        return $this;
-    }
-
-    public function removeAuthor(Author $author): static
-    {
-        $this->author->removeElement($author);
 
         return $this;
     }

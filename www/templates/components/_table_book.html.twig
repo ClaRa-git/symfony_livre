@@ -1,0 +1,45 @@
+<h2>{{title}}</h2>
+
+<table class="game-table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Titre</th>
+            <th>Nombre de pages</th>
+            <th>Description</th>
+            <th>Date de publication</th>
+            <th>Couverture</th>
+            <th>Prix</th>
+            <th>Isbn</th>
+            <th>Série</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for book in books %}
+        <tr>
+            <td>{{ book.id }}</td>
+            <td>{{ book.title }}</td>
+            <td>{{ book.numberPage }}</td>
+            <td>{{ book.description|slice(0,50) ~ '...' }}</td>
+            <td>{{ book.releaseDate ? book.releaseDate|date('d/m/Y') }}</td>
+            <td>
+				<img src="{{asset('images/' ~ book.imagePath)}}" alt="{{book.title}}" class="game-image-admin">
+			</td>            
+            <td>{{ (book.price/100)|number_format }}</td>
+            <td>{{ book.isbn }}</td>
+            <td>{{ book.serie.title }}</td>
+            <td>
+            <div class="game-actions">
+                <a href="{{path('app_book_show', {'id': book.id})}}" class="view-link">Voir</a>
+                <a href="{{path('app_book_edit', {'id': book.id})}}" class="edit-link">Editer</a>
+            </div>                    
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="9">Pas de livre</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

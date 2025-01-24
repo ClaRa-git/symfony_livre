@@ -10,6 +10,7 @@ use App\Repository\SerieRepository;
 use App\Repository\TypeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -28,15 +29,34 @@ final class SerieController extends AbstractController
     }
 
     #[Route('/new', name: 'app_serie_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, SerieRepository $serieRepository): Response
     {
         $serie = new Serie();
         $form = $this->createForm(SerieType::class, $serie);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($serie);
-            $entityManager->flush();
+            // Gestion de l'image uploadée
+            $imageFile = $form->get('imagePath')->getData();
+            if ($imageFile) {
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // On génère un nom de fichier unique
+                $newFilename = $originalFilename . '-' . uniqid() . '.' . $imageFile->guessExtension();
+                // On déplace le fichier dans le dossier public/images
+                try {
+                    $imageFile->move(
+                        $this->getParameter('images_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    $this->addFlash('danger', 'Une erreur est survenue lors de l\'upload de l\'image');
+                }
+
+                // On set le nom de l'image dans l'entité
+                $serie->setImagePath($newFilename);
+            }
+
+            $serieRepository->save($serie, true);
 
             return $this->redirectToRoute('app_serie_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -65,13 +85,34 @@ final class SerieController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_serie_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Serie $serie, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Serie $serie, SerieRepository $serieRepository): Response
     {
         $form = $this->createForm(SerieType::class, $serie);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            // Gestion de l'image uploadée
+            $imageFile = $form->get('image')->getData();
+            if ($imageFile) {
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // On génère un nom de fichier unique
+                $newFilename = $originalFilename . '-' . uniqid() . '.' . $imageFile->guessExtension();
+                // On déplace le fichier dans le dossier public/images
+                try {
+                    $imageFile->move(
+                        $this->getParameter('game_images_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    $this->addFlash('danger', 'Une erreur est survenue lors de l\'upload de l\'image');
+                }
+
+                // On set le nom de l'image dans l'entité
+                $serie->setImagePath($newFilename);
+            }
+
+            // On enregistre le jeu dans la BDD
+            $serieRepository->save($serie, true);
 
             return $this->redirectToRoute('app_serie_index', [], Response::HTTP_SEE_OTHER);
         }

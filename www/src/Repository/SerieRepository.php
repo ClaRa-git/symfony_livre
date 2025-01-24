@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-use App\Entity\Book;
 use App\Entity\Serie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -17,27 +16,6 @@ class SerieRepository extends ServiceEntityRepository
         parent::__construct($registry, Serie::class);
     }
     
-    /**
-     * Méthode pour récupérer la couverture du premier livre d'une série
-     * @param int $id
-     * @return string
-     */
-    public function getFistBookCover(int $id): string
-    {
-        $entityManager = $this->getEntityManager();
-
-        $qb = $entityManager->createQueryBuilder();
-
-        $query = $qb->select('b.imagePath')
-            ->from(Book::class, 'b')
-            ->where('b.serie = :id')
-            ->setParameter('id', $id)
-            ->setMaxResults(1)
-            ->getQuery();
-
-        return $query->getResult()[0]['imagePath'];
-    }
-
     /**
      * Méthode pour récupérer un auteur et un éditeur pour une série
      * @param int $id
@@ -54,7 +32,7 @@ class SerieRepository extends ServiceEntityRepository
             'a.name'
         ])
             ->from(Serie::class, 's')
-            ->join('s.author', 'a')
+            ->join('s.authors', 'a')
             ->where('s.id = :id')
             ->setParameter('id', $id)
             ->getQuery();
@@ -125,7 +103,7 @@ class SerieRepository extends ServiceEntityRepository
             'COUNT(s.id) as total'
         ])
             ->from(Serie::class, 's')
-            ->join('s.author', 'a')
+            ->join('s.authors', 'a')
             ->groupBy('a.id')
             ->getQuery();
 
@@ -150,7 +128,7 @@ class SerieRepository extends ServiceEntityRepository
             'a.name'
         ])
             ->from(Serie::class, 's')
-            ->join('s.author', 'a')
+            ->join('s.authors', 'a')
             ->where('a.id = :id')
             ->setParameter('id', $id)
             ->getQuery();
@@ -264,7 +242,7 @@ class SerieRepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery('
-            SELECT s.id, s.title, s.dateStarted
+            SELECT s.id, s.title, s.dateStarted, s.imagePath
             FROM App\Entity\Serie s
             ORDER BY s.' . $filter
         );
@@ -273,7 +251,7 @@ class SerieRepository extends ServiceEntityRepository
     }
 
     /**
-     * Méthode pour récupérer toues les informations sur les séries
+     * Méthode pour récupérer toutes les informations sur les séries
      */
 
     public function getAllInfos(): array
@@ -285,6 +263,7 @@ class SerieRepository extends ServiceEntityRepository
         $query = $qb->select([
                 's.id',
                 's.title',
+                's.imagePath',
                 's.dateStarted',
                 's.description',
                 's.number_volume',
@@ -294,13 +273,13 @@ class SerieRepository extends ServiceEntityRepository
                 'a.name as authorName',
                 'e.id as editorId',
                 'e.name as editorName',
-                'g.id as typeId',
-                'g.label as typeLabel'
+                't.id as typeId',
+                't.label as typeLabel'
             ])
             ->from(Serie::class, 's')
-            ->join('s.author', 'a')
+            ->join('s.authors', 'a')
             ->join('s.editors', 'e')
-            ->join('s.types', 'g')
+            ->join('s.types', 't')
             ->getQuery();
 
         $results = $query->getResult();
@@ -313,6 +292,7 @@ class SerieRepository extends ServiceEntityRepository
                 $groupedResults[$id] = [
                     'id' => $result['id'],
                     'title' => $result['title'],
+                    'imagePath' => $result['imagePath'],
                     'dateStarted' => $result['dateStarted'],
                     'description' => $result['description'],
                     'number_volume' => $result['number_volume'],
@@ -357,5 +337,21 @@ class SerieRepository extends ServiceEntityRepository
         }
 
         return array_values($groupedResults); // Retourner un tableau indexé
+    }
+
+    /**
+     * Méthode pour créer une série
+     * @param Serie $serie
+     * @param bool $flush
+     * @return void
+     */
+    public function save(Serie $serie, bool $flush = true): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($serie);
+
+        if ($flush) {
+            $entityManager->flush();
+        }
     }
 }

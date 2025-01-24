@@ -5,6 +5,7 @@
                     <th>Id</th>
                     <th>Nom</th>
                     <th>Prénom</th>
+                    <th>Biographie</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -14,6 +15,7 @@
                     <td>{{ author.id }}</td>
                     <td>{{ author.name }}</td>
                     <td>{{ author.firstname }}</td>
+                    <td>{{ author.biography|slice(0,50) ~ '...'}}</td>
                     <td>
                         <div class="game-actions">
                             <a href="{{path('app_author_show', {'id': author.id})}}" class="view-link">Voir</a>

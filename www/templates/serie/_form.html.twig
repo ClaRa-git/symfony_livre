@@ -15,10 +15,21 @@
     </div>
 
     <div class="form-group">
+        {{ form_label(form.imagePath) }}
+        {{ form_widget(form.imagePath) }}
+        {{ form_errors(form.imagePath) }}
+    </div>
+
+    <div class="form-group">
         {{ form_label(form.number_volume) }}
         {{ form_widget(form.number_volume) }}
         {{ form_errors(form.number_volume) }}
     </div>
+
+    <div class="form-group">
+        {{ form_label(form.isFinished) }}
+        {{ form_widget(form.isFinished) }}
+        {{ form_errors(form.isFinished) }}
 
     <div class="form-group">
         {{ form_label(form.dateStarted) }}
@@ -27,15 +38,9 @@
     </div>
 
     <div class="form-group">
-        {{ form_label(form.isFinished) }}
-        {{ form_widget(form.isFinished) }}
-        {{ form_errors(form.isFinished) }}
-    </div>
-
-    <div class="form-group">
-        {{ form_label(form.author) }}
-        {{ form_widget(form.author) }}
-        {{ form_errors(form.author) }}
+        {{ form_label(form.authors) }}
+        {{ form_widget(form.authors) }}
+        {{ form_errors(form.authors) }}
     </div>
 
     <div class="form-group">

@@ -228,7 +228,8 @@ class AppFixtures extends Fixture
                 'isFinished' => true,
                 'author' => [1],
                 'type' => [3, 5, 14],
-                'editor' => [1]
+                'editor' => [1],
+                'imagePath' => 'harry-potter-a-lecole-des-sorciers.jpg'
             ],
             [
                 'title' => 'Le Seigneur des Anneaux',
@@ -238,7 +239,8 @@ class AppFixtures extends Fixture
                 'isFinished' => true,
                 'author' => [2],
                 'type' => [3, 5, 14],
-                'editor' => [2]
+                'editor' => [2],
+                'imagePath' => 'le-seigneur-des-anneaux-la-communaute-de-lanneau.jpg'
             ],
             [
                 'title' => 'Le Trône de Fer',
@@ -248,7 +250,8 @@ class AppFixtures extends Fixture
                 'isFinished' => false,
                 'author' => [3],
                 'type' => [3, 5, 14],
-                'editor' => [3]
+                'editor' => [3],
+                'imagePath' => 'le-trone-de-fer-le-trone-de-fer.jpg'
             ],
             [
                 'title' => 'Illuminae',
@@ -258,7 +261,8 @@ class AppFixtures extends Fixture
                 'isFinished' => true,
                 'author' => [4, 5],
                 'type' => [3, 4, 14],
-                'editor' => [4]
+                'editor' => [4],
+                'imagePath' => 'illuminae-illuminae.jpg'
             ]
         ];
 
@@ -269,7 +273,8 @@ class AppFixtures extends Fixture
             $new_serie->setDescription($value['description']);
             $new_serie->setNumberVolume($value['numberVolumes']);
             $new_serie->setDateStarted($value['dateStarted']);
-            $new_serie->setFinished($value['isFinished']);
+            $new_serie->setIsFinished($value['isFinished']);
+            $new_serie->setImagePath($value['imagePath']);
 
             // Appel à des références pour les relations
             // Boucle pour ajouter les auteurs

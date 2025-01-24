@@ -29,7 +29,7 @@ class TypeRepository extends ServiceEntityRepository
 
         $query = $qb->select('t')
             ->from(Type::class, 't')
-            ->join('t.serie', 's')
+            ->join('t.series', 's')
             ->where('s.id = :id')
             ->setParameter('id', $id)
             ->getQuery();

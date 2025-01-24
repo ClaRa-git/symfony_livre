@@ -29,7 +29,7 @@ class EditorRepository extends ServiceEntityRepository
 
         $query = $qb->select('e')
             ->from(Editor::class, 'e')
-            ->join('e.serie', 's')
+            ->join('e.series', 's')
             ->where('s.id = :id')
             ->setParameter('id', $id)
             ->getQuery();

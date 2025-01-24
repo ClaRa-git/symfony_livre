@@ -1,9 +1,9 @@
 <div class="game-card">
-	<img src="{{asset('images/' ~ serie.imagePath)}}" alt="{{serie.serie.title}}" class="game-image">
+	<img src="{{asset('images/' ~ serie.imagePath)}}" alt="{{serie.title}}" class="game-image">
 	<div class="game-info">
-		<h2 class="game-title">{{serie.serie.title|slice(0,40)}}</h2>
+		<h2 class="game-title">{{serie.title|slice(0,40)}}</h2>
 		<div class="game-info-container">
-			<a href="{{path('app_detail_serie', {'id': serie.serie.id})}}" class="btn btn-detail">Voir détail</a>
+			<a href="{{path('app_detail_serie', {'id': serie.id})}}" class="btn btn-detail">Voir détail</a>
 		</div>
 	</div>
 </div>

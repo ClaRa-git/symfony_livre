@@ -4,6 +4,7 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Image</th>
                 <th>Titre</th>
                 <th>Description</th>
                 <th>Nb de tomes</th>
@@ -19,11 +20,12 @@
         {% for serie in series %}
             <tr>
                 <td>{{ serie.id }}</td>
+                <td><img src="{{asset('images/' ~ serie.imagePath)}}" alt="{{serie.title}}" class="game-image-admin"></td>
                 <td>{{ serie.title }}</td>
-                <td>{{ serie.description }}</td>
+                <td>{{ serie.description|slice(0,50) ~ '...' }}</td>
                 <td>{{ serie.number_volume }}</td>
                 <td>{{ serie.dateStarted ? serie.dateStarted|date('d/m/Y') : '' }}</td>
-                <td>{{ serie.isFinished ? 'Yes' : 'No' }}</td>
+                <td>{{ serie.isFinished ? 'Oui' : 'Non' }}</td>
                 <td>
                     {% for author in serie.authors %}
                         {{author.firstname}} {{author.name}}<br>                       
@@ -48,7 +50,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">Pas de série</td>
             </tr>
         {% endfor %}
         </tbody>
