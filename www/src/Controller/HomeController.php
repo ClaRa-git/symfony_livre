@@ -99,19 +99,10 @@ class HomeController extends AbstractController
     public function seriesAuthor(SerieRepository $serieRepository, int $id)
     {
         //Récupération des datas des série par auteur
-        $allSeries = $serieRepository->getSeriesByAuthor($id);
-
-        // Création d'un tableau pour stocker les séries et leur image
-        $series = [];
-        foreach ($allSeries as $serie) {
-            $series[] = [
-                'serie' => $serie,
-                'imagePath' => $serieRepository->getFistBookCover($serie['id'])
-            ];
-        }
+        $series = $serieRepository->getSeriesByAuthor($id);
 
         // Titre de la page
-        $title = "Séries de " . $series[0]['serie']['firstname'] . " " . $series[0]['serie']['name'];
+        $title = "Séries de " . $series[0]['firstname'] . " " . $series[0]['name'];
 
         return $this->render('home/index.html.twig', [
             'title' => $title,
@@ -129,19 +120,10 @@ class HomeController extends AbstractController
     public function seriesEditor(SerieRepository $serieRepository, int $id)
     {
         //Récupération des datas des série par éditeur
-        $allSeries = $serieRepository->getSeriesByEditor($id);
-
-        // Création d'un tableau pour stocker les séries et leur image
-        $series = [];
-        foreach ($allSeries as $serie) {
-            $series[] = [
-                'serie' => $serie,
-                'imagePath' => $serieRepository->getFistBookCover($serie['id'])
-            ];
-        }
+        $series = $serieRepository->getSeriesByEditor($id);
 
         // Titre de la page
-        $title = "Séries de " . $series[0]['serie']['name'];
+        $title = "Séries de " . $series[0]['name'];
 
         return $this->render('home/index.html.twig', [
             'title' => $title,
@@ -159,19 +141,10 @@ class HomeController extends AbstractController
     public function seriesType(SerieRepository $serieRepository, int $id)
     {
         //Récupération des datas des série par genre
-        $allSeries = $serieRepository->getSeriesByType($id);
-
-        // Création d'un tableau pour stocker les séries et leur image
-        $series = [];
-        foreach ($allSeries as $serie) {
-            $series[] = [
-                'serie' => $serie,
-                'imagePath' => $serieRepository->getFistBookCover($serie['id'])
-            ];
-        }
+        $series = $serieRepository->getSeriesByType($id);
         
         // Titre de la page
-        $title = "Séries de type : " . $series[0]['serie']['label'];
+        $title = "Séries de type : " . $series[0]['label'];
 
         return $this->render('home/index.html.twig', [
             'title' => $title,
@@ -190,16 +163,7 @@ class HomeController extends AbstractController
     public function seriesFilter(SerieRepository $serieRepository, string $field)
     {
         // Récupération des séries
-        $allSeries = $serieRepository->getSeriesByFilter($field);
-
-        // Création d'un tableau pour stocker les séries et leur image
-        $series = [];
-        foreach ($allSeries as $serie) {
-            $series[] = [
-                'serie' => $serie,
-                'imagePath' => $serieRepository->getFistBookCover($serie['id'])
-            ];
-        }
+        $series = $serieRepository->getSeriesByFilter($field);
 
         // Titre de la page selon le filtre utilisé
         switch ($field) {

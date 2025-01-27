@@ -124,6 +124,7 @@ class SerieRepository extends ServiceEntityRepository
         $query = $qb->select([
             's.id',
             's.title',
+            's.imagePath',
             'a.firstname',
             'a.name'
         ])
@@ -173,6 +174,7 @@ class SerieRepository extends ServiceEntityRepository
         $query = $qb->select([
             's.id',
             's.title',
+            's.imagePath',
             'e.name'
         ])
             ->from(Serie::class, 's')
@@ -221,6 +223,7 @@ class SerieRepository extends ServiceEntityRepository
         $query = $qb->select([
             's.id',
             's.title',
+            's.imagePath',
             'g.label'
         ])
             ->from(Serie::class, 's')
@@ -242,7 +245,7 @@ class SerieRepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery('
-            SELECT s.id, s.title, s.dateStarted, s.imagePath
+            SELECT s.id, s.title, s.dateStarted, s.imagePath,
             FROM App\Entity\Serie s
             ORDER BY s.' . $filter
         );
