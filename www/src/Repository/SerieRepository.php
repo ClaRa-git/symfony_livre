@@ -245,7 +245,7 @@ class SerieRepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery('
-            SELECT s.id, s.title, s.dateStarted, s.imagePath,
+            SELECT s.id, s.title, s.dateStarted, s.imagePath
             FROM App\Entity\Serie s
             ORDER BY s.' . $filter
         );
