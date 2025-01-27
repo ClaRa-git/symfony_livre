@@ -85,7 +85,9 @@ class SerieType extends AbstractType
             ->add('authors', EntityType::class, [
                 'class' => Author::class,
                 'label' => 'Auteur(s)',
-                'choice_label' => 'name',
+                'choice_label' => function ($author) {
+                    return $author->getFirstname() . ' ' . $author->getName();
+                },
                 'multiple' => true,
                 'expanded' => true,
                 'attr' => [
