@@ -68,7 +68,7 @@ class BookType extends AbstractType
                     'class' => 'form-control'
                 ],
                 'multiple' => false,
-                'expanded' => true
+                'expanded' => false
             ])
         ;
 
