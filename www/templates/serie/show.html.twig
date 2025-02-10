@@ -4,6 +4,9 @@
 
 {% block body %}
     <div class="game-detail-card">
+        <div class="game-detail-image">
+			<img src="{{asset('images/covers/' ~ serie.imagePath)}}" alt="{{serie.title}}">
+		</div>
         <div class="game-detail-content">
             <h1 class="game-title">{{serie.title|slice(0,30)}}</h1>
             <div class="game-consoles mb-3">

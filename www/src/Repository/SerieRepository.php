@@ -255,6 +255,7 @@ class SerieRepository extends ServiceEntityRepository
 
     /**
      * Méthode pour récupérer toutes les informations sur les séries
+     * @return array
      */
     public function getAllInfos(): array
     {

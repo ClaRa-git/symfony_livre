@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/editor')]
+#[Route('admin/editor')]
 final class EditorController extends AbstractController
 {
     /**
